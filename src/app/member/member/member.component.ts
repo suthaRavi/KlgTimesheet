@@ -118,14 +118,14 @@ export class MemberComponent implements OnInit {
 
   removeMember(member)
   {
-      if(confirm("Do you want delete Member id " + member.id) == true)
+      if(confirm("Do you want delete Member id " + member.member_id) == true)
       {
-        console.log("remove " + member.id); 
-        let id = member.id;     
-        this.memberService.deleteMember(member.id).subscribe(
+        console.log("remove " + member.member_id); 
+        let id = member.member_id;     
+        this.memberService.deleteMember(member.member_id).subscribe(
             response => 
             { //this.members = response;
-              this.members = this.members.filter(member => member.id !== id)
+              this.members = this.members.filter(member => member.member_id !== id)
             },
             (err: HttpErrorResponse) => 
             {
@@ -140,7 +140,6 @@ export class MemberComponent implements OnInit {
         )
       }
       else{
-
       }
   }
 
