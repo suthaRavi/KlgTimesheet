@@ -8,11 +8,13 @@ import { BootstrapModule } from './bootstrap/bootstrap.module';
 
 import { AppComponent } from './app.component';
 import { MemberModule } from './member/member.module';
+import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TimeSheetComponent
   ],
   imports: [
     BrowserModule,

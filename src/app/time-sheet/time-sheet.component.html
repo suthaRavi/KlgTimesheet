@@ -1,0 +1,119 @@
+<div class="container">    
+    <div class="margin-20">
+      <h4>Time Sheet</h4>
+    </div>
+    <form class="" [formGroup]="timeSheetForm" novalidate (ngSubmit)="save(timeSheetForm)">
+      <div class="row border">
+        <div class="form-group col-xs-6 border">
+          <select class="form-control" formControlName="first_name">
+            <option value="" disabled selected> Select your name</option>
+            <option *ngFor="let member of members" [value]="member.first_name"> {{member.first_name}} </option>
+          </select>
+    <!--      <input type="text" class="form-control" formControlName="first_name" placeholder="Name"> -->
+            <small *ngIf="!timeSheetForm.controls.first_name.valid" class="text-danger">
+              Name is required.
+            </small>
+        </div>
+        <div class="col-xs-6 input-group ">            
+         
+            <input type="text" class="form-control" placeholder="dd.mm.yyyy" bsDatepicker
+            formControlName="job_date"   />
+
+        </div>
+      </div>
+      <div class="row">
+        <div formArrayName="job_times" class="">
+          <div *ngFor="let time of timeSheetForm.controls.job_times.controls; let i=index" class="panel panel-default ">
+            <div class="panel-heading">
+              <span>Time {{i + 1}}</span>
+              <span class="glyphicon glyphicon-remove pull-right" *ngIf="timeSheetForm.controls.job_times.controls.length > 1" (click)="removeTime(i)"></span>
+            </div>
+          
+            <div class="">
+            <div class="">
+            <div class="panel-body " [formGroupName]="i" >
+              <div class="form-group col-xs-2">
+                <label>Job ID</label>
+                <select class="form-control" formControlName="job_id">
+                  <option value=" " disabled selected>Job</option>
+                  <option *ngFor=" let job of jobs" [value] = "job.job_id"> {{job.job_id}} </option>
+                </select>
+                               
+              </div>
+              <div class="form-group col-xs-2">
+                <label>Department</label>
+                <select class="form-control" formControlName="job_department">
+                  <option value="" disabled selected>Department</option>
+                  <option *ngFor=" let department of departments" [value] = "department.name">{{department.name}}</option>
+                </select>
+            <!--    <input type="text" class="form-control" formControlName="job_department" >  -->              
+              </div>
+              <div class="form-group col-xs-2">
+                <label>Category</label>
+                  <select class="form-control" formControlName="job_category" >
+                    <option value="" disabled selected>Category</option>
+                    <option *ngFor="let category of categories " [value]="category">{{category}}</option>
+                  </select>
+                  <!--
+                
+                <input type="text" class="form-control" formControlName="job_category" >                
+                  -->
+              </div>
+              <div class="form-group col-xs-2">
+                <label>Hours</label>
+                <input type="text" #hour class="form-control" formControlName="job_time">
+                                   
+              </div>
+            
+              <div class="clearfix">
+              <div class="form-group  col-xs-2 top-buffer ">                  
+                <div class="">
+                  
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="is_overtime">
+                  <label class="form-check-label" for="">Overtime</label>
+                
+                </div>
+             
+              </div>
+              <div class=" bg-primary ">
+                <div class="col-xs-2 top-buffer">
+                  <button type="button" class="btn-primary" (click)="addTime()">Add More</button>
+
+                  
+                </div>
+              </div>
+            </div>
+
+            </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6"></div>
+      <div class=" col-xs-2 ">
+        <h4>Total Hours:{{ total_hours }} </h4>
+      </div>
+
+    
+
+      <div class="margin-20">
+        <button type="submit" class="btn btn-primary pull-right" [disabled]="!timeSheetForm.valid">Submit</button>
+      </div>
+    </form>
+    
+      <div class="clearfix"></div>
+      <div>
+        <h3>Today:{{ today | date: 'shortDate' }} </h3>
+      </div>
+
+      <div class="margin-20">
+        <div>timeSheetForm details:</div>
+        <pre>Is timeSheetForm valid?: <br>{{timeSheetForm.valid | json}}</pre>
+        <pre>form value: <br>{{timeSheetForm.value | json}}</pre>
+       
+      </div>
+  
+`
+</div>
+
