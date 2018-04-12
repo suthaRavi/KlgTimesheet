@@ -14,7 +14,7 @@
               Name is required.
             </small>
         </div>
-        <div class="col-xs-6 input-group ">            
+        <div class="col-xs-6 form-group ">            
          
             <input type="text" class="form-control" placeholder="dd.mm.yyyy" bsDatepicker
             formControlName="job_date"   />
@@ -35,7 +35,7 @@
               <div class="form-group col-xs-2">
                 <label>Job ID</label>
                 <select class="form-control" formControlName="job_id">
-                  <option value=" " disabled selected>Job</option>
+                  <option value="" disabled selected>Job</option>
                   <option *ngFor=" let job of jobs" [value] = "job.job_id"> {{job.job_id}} </option>
                 </select>
                                

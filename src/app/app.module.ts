@@ -8,6 +8,7 @@ import { BootstrapModule } from './bootstrap/bootstrap.module';
 
 import { AppComponent } from './app.component';
 import { MemberModule } from './member/member.module';
+import { JobsModule } from './jobs/jobs.module';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 
 
@@ -17,12 +18,13 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
     TimeSheetComponent
   ],
   imports: [
-    BrowserModule,
-    AppRoutingModule,
+    BrowserModule,    
     HttpClientModule,
     ReactiveFormsModule,
     BootstrapModule,
-    MemberModule
+    MemberModule,
+    JobsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

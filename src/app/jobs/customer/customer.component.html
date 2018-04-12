@@ -1,0 +1,144 @@
+<div>
+  <h3 class="text-center">Customers List</h3>
+      <table class=" table table-striped table-bordered table-hover" align="center">
+        <thead>
+          <tr>
+            
+            <th> Customer ID</th>
+            <th> Name</th>
+            <th>Address 1 </th>
+            <th> Address 2</th>
+            <th> City </th>
+            <th> Zipcode</th>
+            <th> State </th>
+            <th> Country </th>
+            <th> Phone </th>
+            <th> Fax </th>
+            <th>
+              <button class="btn btn-default fa fa-plus" id="add" (click)="presentCustomerDialog('Add', template)"></button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let customer of customers">
+            
+            <td> {{customer.customer_id}} </td>
+            <td> {{customer.name}} </td>
+            <td> {{customer.address1}} </td>
+            <td> {{customer.address2}} </td>
+            <td> {{customer.city}} </td>
+            <td> {{customer.zipCode}} </td>
+            <td> {{customer.state}} </td>
+            <td> {{customer.country}} </td>
+            <td> {{customer.phone }} </td>
+            <td> {{ customer.fax}} </td>
+            <td>
+              <button class="btn btn-default fa fa-pencil" (click)="presentCustomerDialog( 'Update', customer)"></button>
+              <button class="btn btn-default fa fa-trash" (click)="removeCustomer(customer)"></button>
+
+            </td>
+          </tr>
+        </tbody>
+  </table>
+</div>
+    
+<ng-template #template>
+
+        <div class="modal-header">
+            <h4 class="modal-title text-center">{{ customerMode + " Customer " }}</h4>
+            <button type="button" class="close pull-right" 
+                    aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="container-fluid">
+            <div class="text-center">
+              <h4>Customer</h4>
+            </div>
+            <form [formGroup]="customerForm"  novalidate >
+              <div class="form-row" >
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="Customer id" 
+                    formControlName="customer_id" [(ngModel)]= "customer.customer_id"  />  
+                </div>
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="name" 
+                    formControlName="name" [(ngModel)] = "customer.name"  />  
+                </div>
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="Address 1" 
+                    formControlName="address1" [(ngModel)] = "customer.address1"  />  
+                </div>
+              </div>
+              <div class="form-row" >
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="Address 2" 
+                    formControlName="address2" [(ngModel)]= "customer.address2"  />  
+                </div>
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="City" 
+                    formControlName="city" [(ngModel)] = "customer.city"  />  
+                </div>
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="ZipCode " 
+                    formControlName="zipCode" [(ngModel)] = "customer.zipCode"  />  
+                </div>
+              </div>
+              <div class="form-row" >
+                  <div class="col-sm-4 form-group ">       
+                      <input type="text" class="form-control" placeholder="State" 
+                        formControlName="state" [(ngModel)] = "customer.state"  />  
+                    </div>
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="Country " 
+                    formControlName="country" [(ngModel)]= "customer.country"  />  
+                </div>
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="Phone" 
+                    formControlName="phone" [(ngModel)] = "customer.phone"  />  
+                </div>
+
+              </div>
+              <div class="form-row" >
+                <div class="col-sm-4 form-group ">       
+                  <input type="text" class="form-control" placeholder="Fax" 
+                  formControlName="fax" [(ngModel)] = "customer.fax"  />  
+                </div>
+                <div class="col-sm-4 form-group ">       
+                  
+                </div>
+                <div class="col-sm-4 form-group ">       
+                  
+                </div>
+              </div>
+              <div class="clear-fix"></div>
+            <div class="form-row" >
+              <div *ngIf="isInsert" class="col s4">
+
+                <button type="submit" (click)="addCustomer(customerForm.value)" class="btn btn-success pull-right" [disabled]="!customerForm.valid">Add</button>
+              </div>
+              <div *ngIf="!isInsert" class="col s4">
+
+                <button type="submit" (click)="updateCustomer()" class="btn btn-success pull-right" [disabled]="!customerForm.valid">Update</button>
+              </div>
+              
+              <div class="col s4">
+                <button type="button" class=" btn lime lightern-1 pull-right close_btn " (click)="modalRef.hide()">Close</button>
+               
+              </div>
+              
+
+            </div>
+            </form>
+          </div>
+        </div>
+      
+</ng-template>
+
+ 
+  
+
+
+

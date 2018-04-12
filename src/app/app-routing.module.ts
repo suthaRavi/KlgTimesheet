@@ -1,19 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import {MemberModule } from './member/member.module';
-import { DepartmentComponent } from './member/department/department.component';
-import { MemberComponent } from './member/member/member.component';
+import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 
 
 const routes: Routes = [
- { path: 'department',
-    component: DepartmentComponent
- },
- {
-   path: 'member',
-   component: MemberComponent
- }
+  {
+    path: 'timesheet',
+    component: TimeSheetComponent
+  }
+
 ];
 
 @NgModule({

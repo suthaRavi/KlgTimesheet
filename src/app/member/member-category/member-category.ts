@@ -1,4 +1,4 @@
-export class Department {
+export class MemberCategory {
     id: number;
     code: string;
     name: string;

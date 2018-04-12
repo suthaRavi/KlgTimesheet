@@ -1,4 +1,4 @@
-export class Department {
+export class JobCategory {
     id: number;
     code: string;
     name: string;

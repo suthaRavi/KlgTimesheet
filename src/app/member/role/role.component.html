@@ -1,0 +1,83 @@
+<div>
+    <h3 class="text-center">Roles List</h3>
+        <table class=" table table-striped table-bordered table-hover" align="center">
+          <thead>
+            <tr>
+              <th> Id</th>
+              <th> Code</th>
+              <th> Name</th>
+              <th>
+                <button class="btn btn-default fa fa-plus" id="add" (click)="presentRoleDialog('Add', template)"></button>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let role of roles">
+              <td> {{role.id}} </td>
+              <td> {{role.code}} </td>
+              <td> {{role.name}} </td>
+  
+              <td>
+                <button class="btn btn-default fa fa-pencil" (click)="presentRoleDialog( 'Update', role)"></button>
+                <button class="btn btn-default fa fa-trash" (click)="removeRole(role)"></button>
+  
+              </td>
+            </tr>
+          </tbody>
+    </table>
+  </div>
+      
+  <ng-template #template>
+  
+          <div class="modal-header">
+              <h4 class="modal-title text-center">{{ roleMode + " Role " }}</h4>
+              <button type="button" class="close pull-right" 
+                      aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body">
+            
+            <div class="container-fluid">
+              <div class="text-center">
+                <h4>Role</h4>
+              </div>
+              <form [formGroup]="roleForm"  novalidate >
+                <div class="form-row" >
+                  <div class="col-sm-6 form-group ">       
+                    <input type="text" class="form-control" placeholder="code" 
+                      formControlName="code" [(ngModel)]= "role.code"  />  
+                  </div>
+                  <div class="col-sm-6 form-group ">       
+                    <input type="text" class="form-control" placeholder="name" 
+                      formControlName="name" [(ngModel)] = "role.name"  />  
+                  </div>
+                </div>
+                <div class="clear-fix"></div>
+              <div class="form-row" >
+                <div *ngIf="isInsert" class="col s4">
+  
+                  <button type="submit" (click)="addRole(roleForm.value)" class="btn btn-success pull-right" [disabled]="!roleForm.valid">Add</button>
+                </div>
+                <div *ngIf="!isInsert" class="col s4">
+  
+                  <button type="submit" (click)="updateRole()" class="btn btn-success pull-right" [disabled]="!roleForm.valid">Update</button>
+                </div>
+                
+                <div class="col s4">
+                  <button type="button" class=" btn lime lightern-1 pull-right close_btn " (click)="modalRef.hide()">Close</button>
+                 
+                </div>
+                
+  
+              </div>
+              </form>
+            </div>
+          </div>
+        
+  </ng-template>
+  
+   
+    
+  
+  

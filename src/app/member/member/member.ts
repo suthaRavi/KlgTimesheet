@@ -11,7 +11,7 @@ export class Member {
     category : string;
     pay_rate : number;
     status : string;
-    constructor(values: Object = { }){
+    constructor(values: Object = {  }){
         Object.assign(this, values)
     }
 }
