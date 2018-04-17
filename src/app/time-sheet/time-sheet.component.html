@@ -2,7 +2,7 @@
     <div class="margin-20">
       <h4>Time Sheet</h4>
     </div>
-    <form class="" [formGroup]="timeSheetForm" novalidate (ngSubmit)="save(timeSheetForm)">
+    <form class="" [formGroup]="timeSheetForm" novalidate (ngSubmit)="save()">
       <div class="row border">
         <div class="form-group col-xs-6 border">
           <select class="form-control" formControlName="first_name">
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div class="row">
-        <div formArrayName="job_times" class="">
+        <div formArrayName="job_time" class="">
           <div *ngFor="let time of timeSheetForm.controls.job_times.controls; let i=index" class="panel panel-default ">
             <div class="panel-heading">
               <span>Time {{i + 1}}</span>

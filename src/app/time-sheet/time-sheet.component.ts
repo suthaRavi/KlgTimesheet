@@ -12,6 +12,7 @@ import { Member } from '.././member/member/member';
 import { Job } from '.././jobs/job/job';
 import { JobService } from '.././jobs/job/job.service';
 import { TimeSheet, JobTime } from './time-sheet';
+import { TimeSheetService } from '../time-sheet/time-sheet.service';
 
 @Component({
   selector: 'time-sheet',
@@ -23,6 +24,7 @@ export class TimeSheetComponent implements OnInit {
   public total_hours: number = 0;
   categories: string[];
   _jobTime: JobTime[];
+  _timeSheet: TimeSheet;
   today: number = Date.now() ;
   members:  Member[];
   departments: Department[];
@@ -30,7 +32,8 @@ export class TimeSheetComponent implements OnInit {
 
   
   constructor(private fb: FormBuilder, private memberService: MemberService,
-    private departmentService: DepartmentService, private jobService: JobService) {
+    private departmentService: DepartmentService, private jobService: JobService,
+    private timeSheetService: TimeSheetService) {
 
    }
 
@@ -114,6 +117,24 @@ getResources(){
 }
 save(){
   console.log("Save ");
-  console.log("Form Value ", this.timeSheetForm.value)
+  console.log("Form Value ", this.timeSheetForm.value);
+  this._timeSheet = this.timeSheetForm.value;
+  console.log("TimeSheet ", this._timeSheet);
+  this.timeSheetService.addTimeSheet(this._timeSheet).subscribe(
+    res => {
+      console.log(" TimeSheet added")
+    },
+                                                                                   
+    (err: HttpErrorResponse) => {
+      if(err.error instanceof Error){
+        console.log(' client error ', err.error.message);
+      }else{
+        console.log('  Backend returned status code: ', err.status);
+        console.log('  Response body: ', err.error);
+      }
+      
+    }
+  )
+
 }
 }

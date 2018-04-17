@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { MemberModule } from './member/member.module';
 import { JobsModule } from './jobs/jobs.module';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
-
+import { TimeSheetService } from './time-sheet/time-sheet.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +26,7 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
     JobsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [TimeSheetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
