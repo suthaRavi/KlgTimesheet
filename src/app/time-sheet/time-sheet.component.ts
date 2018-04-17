@@ -65,7 +65,7 @@ export class TimeSheetComponent implements OnInit {
 
 init_time(){
   return this.fb.group({
-    job_id: ['',Validators.required],
+    job_id: ['', Validators.required],
     job_department: [''],
     job_category: [''],
     job_time: [''],
