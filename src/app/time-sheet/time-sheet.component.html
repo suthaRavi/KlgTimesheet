@@ -22,11 +22,11 @@
         </div>
       </div>
       <div class="row">
-        <div formArrayName="job_times" class="">
-          <div *ngFor="let time of timeSheetForm.controls.job_times.controls; let i=index" class="panel panel-default ">
+        <div formArrayName="job_times_attributes" class="">
+          <div *ngFor="let time of timeSheetForm.controls.job_times_attributes.controls; let i=index" class="panel panel-default ">
             <div class="panel-heading">
               <span>Time {{i + 1}}</span>
-              <span class="glyphicon glyphicon-remove pull-right" *ngIf="timeSheetForm.controls.job_times.controls.length > 1" (click)="removeTime(i)"></span>
+              <span class="glyphicon glyphicon-remove pull-right" *ngIf="timeSheetForm.controls.job_times_attributes.controls.length > 1" (click)="removeTime(i)"></span>
             </div>
           
             <div class="">
@@ -101,7 +101,7 @@
         <button type="submit" class="btn btn-primary pull-right" [disabled]="!timeSheetForm.valid">Submit</button>
       </div>
     </form>
-    
+    <!--
       <div class="clearfix"></div>
       <div>
         <h3>Today:{{ today | date: 'shortDate' }} </h3>
@@ -113,7 +113,7 @@
         <pre>form value: <br>{{timeSheetForm.value | json}}</pre>
        
       </div>
-  
+  -->
 `
 </div>
 

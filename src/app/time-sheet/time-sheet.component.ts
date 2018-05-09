@@ -24,8 +24,7 @@ export class TimeSheetComponent implements OnInit {
   public total_hours: number = 0;
   categories: string[];
   _jobTime: JobTime[];
-  _timeSheet: TimeSheet;
-  today: number = Date.now() ;
+   today: number = Date.now() ;
   members:  Member[];
   departments: Department[];
   jobs: Job[];
@@ -42,13 +41,13 @@ export class TimeSheetComponent implements OnInit {
     this.timeSheetForm = this.fb.group({
       first_name: [''],
       job_date: null,
-      job_times: this.fb.array([this.init_time()])
+      job_times_attributes: this.fb.array([this.init_time()])
     });
 
     this.timeSheetForm.valueChanges.subscribe(form =>{
       let hour: number = 0;
      // console.log(this.timeSheetForm.controls.job_times.value);
-      this._jobTime = this.timeSheetForm.controls.job_times.value;
+      this._jobTime = this.timeSheetForm.controls.job_times_attributes.value;
       this._jobTime.forEach(element => {
         //console.log("Job time" + element.job_time);
         hour = hour + Number(element.job_time) ;
@@ -74,7 +73,7 @@ init_time(){
 }
 
 addTime(){
-  const control = <FormArray> this.timeSheetForm.controls['job_times'];
+  const control = <FormArray> this.timeSheetForm.controls['job_times_attributes'];
   control.push(this.init_time());
  
  
@@ -82,7 +81,7 @@ addTime(){
 
 removeTime(i: number){
  
-  const controle = <FormArray> this.timeSheetForm.controls['job_times'];
+  const controle = <FormArray> this.timeSheetForm.controls['job_times_attributes'];
   controle.removeAt(i);
  
 }
@@ -116,13 +115,14 @@ getResources(){
   )
 }
 save(){
-  console.log("Save ");
-  console.log("Form Value ", this.timeSheetForm.value);
-  this._timeSheet = this.timeSheetForm.value;
-  console.log("TimeSheet ", this._timeSheet);
-  this.timeSheetService.addTimeSheet(this._timeSheet).subscribe(
+ // console.log("Save ");
+ // console.log("Form Value ", this.timeSheetForm.value);
+
+  this.timeSheetService.addTimeSheet(this.timeSheetForm.value).subscribe(
     res => {
       console.log(" TimeSheet added")
+      this.timeSheetForm.reset();
+      alert("Saved");
     },
                                                                                    
     (err: HttpErrorResponse) => {
