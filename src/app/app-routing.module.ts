@@ -6,9 +6,11 @@ import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 
 const routes: Routes = [
   {
-    path: 'timesheet',
+    path: '',
     component: TimeSheetComponent
   }
+ 
+
 
 ];
 

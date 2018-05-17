@@ -11,11 +11,13 @@ import { MemberModule } from './member/member.module';
 import { JobsModule } from './jobs/jobs.module';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { TimeSheetService } from './time-sheet/time-sheet.service';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TimeSheetComponent
+    TimeSheetComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,    
