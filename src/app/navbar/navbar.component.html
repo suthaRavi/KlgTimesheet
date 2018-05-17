@@ -1,0 +1,50 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+      <div class="navbar-header">
+          <a class="navbar-brand">
+            <img src="" class="logo">
+          </a>
+          <span class="navbar-brand">KLG Molds Inc</span>
+      </div>
+      <ul class="nav navbar-nav pull-right">
+        <li>
+            <a [routerLink]="['/home']">HOME</a>
+          </li>
+          
+          <li class="dropdown" dropdown> <!-- {1} -->
+              <a dropdownToggle role="button"> <!-- {2} -->
+                MEMBERS <span class="caret"></span></a>
+              <ul *dropdownMenu class="dropdown-menu"> <!-- {3} -->
+                <li><a [routerLink]="['/member']">Member</a></li>
+                <li>
+                    <a [routerLink]="['/department']">Department</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['/role']">Role</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['/memberCategory']">Category</a>
+                  </li>
+                  <li>
+                    <a [routerLink]="['/status']">Status</a>
+                  </li>
+              </ul>
+          </li>
+          <li class="dropdown" dropdown> <!-- {1} -->
+            <a dropdownToggle role="button"> <!-- {2} -->
+              JOBS <span class="caret"></span></a>
+            <ul *dropdownMenu class="dropdown-menu"> <!-- {3} -->
+              <li><a [routerLink]="['/customer']">Customer</a></li>
+              <li>
+                  <a [routerLink]="['/job']">Job</a>
+                </li>
+                <li>
+                  <a [routerLink]="['/jobCategory']">Job Category</a>
+                </li>
+                
+
+            </ul>
+        </li>
+      </ul>
+  </div>
+</nav>
