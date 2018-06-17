@@ -11,11 +11,13 @@ export class AppComponent {
   bsdatePickerConfig: Partial<BsDatepickerConfig>
   title = 'app';
   constructor(){
+    
     this.bsdatePickerConfig = Object.assign({},
     {
       containerClass: 'theme-dark-blue',
-      dateInputFormat: 'yyyy-mm-dd',
+      dateInputFormat: 'yyyy-M-dd',
       showWeekNumbers: false
     });
+    
   }
 }

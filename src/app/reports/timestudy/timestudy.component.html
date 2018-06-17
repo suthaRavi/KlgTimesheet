@@ -1,0 +1,70 @@
+<div class="container">
+    <h3 class="text-center">Time Study</h3>
+    <form novalidate #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm.value)"  >
+
+        <div class="form-group col-sm-6">
+            <select class="form-control" name="first_name" ngModel required>
+                <option selected disabled value="">First Name</option>
+                <option *ngFor="let member of members" [value]="member.first_name" >{{member.first_name}}</option>
+            </select>
+                        
+        </div>
+        <div class="form-group col-sm-6">
+            <select class="form-control" name="job_id" ngModel required>
+                <option selected disabled value="">Job</option>
+                <option *ngFor="let job of jobs" [value]="job.job_id">{{job.job_id}}</option>
+            </select>
+               
+        </div>
+        <div class="col-sm-12" style="background-color:powderblue;">
+
+       
+            <div class="col-sm-6 form-group input-group date " style="border: bold red">        
+                <input type="text" class="form-control" name="job_date"  ngModel 
+                    placeholder="Start date" bsDatepicker  
+                />    
+        
+            </div>
+            <div class="col-sm-6 form-group ">        
+                <input type="text" class="form-control" name="end_date" 
+                ngModel placeholder="End date" bsDatepicker/>        
+            </div>
+        </div>
+        <div class="clear-fix"></div>
+        <div class="col-sm-12 ">       
+        
+            <button type="submit"  class="btn btn-success">Submit</button>
+        </div>
+    </form>
+    <!-- 
+        <pre>{{searchForm.value | json}}</pre>  
+    -->  
+</div>
+<div *ngIf="data">
+    <h3 class="text-center">Results</h3>
+    <ul>
+        <li>{{timeSheets[0].first_name}}</li>
+        <li>{{timeSheets[0].job_date}}</li>
+    </ul>
+        <table class=" table table-striped table-bordered table-hover" align="center">
+          <thead>
+            <tr>              
+              <th> Job Id </th>
+              <th> Department </th>
+              <th> Category </th>
+              <th> Hours </th>
+              <th> Over Time </th>
+
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let jt of timeSheets[0].job_times " >
+                <td>{{jt.job_id}}</td>  
+                <td>{{jt.job_department}}</td>
+                  <td>{{jt.job_category}}</td>
+                  <td>{{jt.job_time}}</td>
+                  <td> {{jt.is_overtime}} </td>
+              </tr>
+          </tbody>
+          </table>
+</div>

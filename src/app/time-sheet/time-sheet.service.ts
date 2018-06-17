@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
 import { TimeSheet } from '../time-sheet/time-sheet';
 @Injectable()
 export class TimeSheetService {
-  private timeSheetUrl = 'http://localhost:3000/time_sheets/'
+  private timeSheetUrl = 'http://localhost:3000/time_sheets/';
+//  queryString = new HttpParams();
   constructor(private httpClient: HttpClient) { }
 
-  getJobCategories(): Observable<TimeSheet[]> 
+  getTimeSheets(name: string,job_id:string, job_date: string, end_date: string): Observable<TimeSheet[]> 
   {
-    return this.httpClient.get<TimeSheet[]>(this.timeSheetUrl, {responseType: 'json'});
+    let queryString = new HttpParams().set('first_name', name).set('job_id', job_id)
+      .set('job_date', job_date).set('end_date', end_date)
+ // console.log("Search ", name);
+  //  console.log("Timesheet get", queryString);
+    return this.httpClient.get<TimeSheet[]>(this.timeSheetUrl,{params: queryString, responseType: 'json'});
   }
 
   addTimeSheet(timeSheet: TimeSheet): Observable<TimeSheet>

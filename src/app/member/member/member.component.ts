@@ -131,7 +131,7 @@ export class MemberComponent implements OnInit {
  
   addMember(member){
     console.log("Add member ", member.code );
-    
+    console.log("Join date ", member.join_date);
     this.memberService.addMember(member).subscribe(            
                             res =>{   
                                 this.members.push(res); 

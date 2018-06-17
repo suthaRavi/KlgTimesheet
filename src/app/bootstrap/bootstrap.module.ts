@@ -7,6 +7,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -17,7 +18,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
      
   ],
   exports: [
-    BsDropdownModule, TooltipModule, ModalModule, BsDatepickerModule
+    BsDropdownModule, TooltipModule, ModalModule, BsDatepickerModule 
   ],
   declarations: []
 })
