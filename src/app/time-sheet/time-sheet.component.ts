@@ -116,7 +116,7 @@ getResources(){
 }
 save(){
  // console.log("Save ");
- // console.log("Form Value ", this.timeSheetForm.value);
+  console.log("Form Value ", this.timeSheetForm.value);
 
   this.timeSheetService.addTimeSheet(this.timeSheetForm.value).subscribe(
     res => {

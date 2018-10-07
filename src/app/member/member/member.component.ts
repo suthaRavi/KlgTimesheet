@@ -25,14 +25,14 @@ import { StatusService } from '../status/status.service';
 export class MemberComponent implements OnInit {
   @Input('member-mode') memberMode: 'Add' | 'Update' = 'Add';
   @ViewChild('template') template: TemplateRef<any>
-  private isInsert: boolean = true;
+  isInsert: boolean = true;
   members: Member[];
-  private member: Member = new Member;
+  member: Member = new Member;
   departments: Department[];
   memberCategories: MemberCategory[];
   roles: Role[];
   statuses: Status[];
-  private memberForm: FormGroup;
+  memberForm: FormGroup;
 
   modalRef: BsModalRef;
   
