@@ -57,8 +57,8 @@ export class TimestudyComponent implements  OnChanges {
 
   ngOnInit() {
     this.tsForm = this.fb.group({
-      first_name: [{value:''}],
-      job_date: [{value: null}],
+      first_name: [{value:''}, Validators.required],
+      job_date: [{value: null}, Validators.required],
       job_times: this.fb.array([])
     });
     this.getResources();
@@ -70,11 +70,11 @@ export class TimestudyComponent implements  OnChanges {
   }
   init_time(){
     return this.fb.group({
-      job_id: [''],
-      job_department: [''],
-      job_category: [''],
-      job_time: [''],
-      is_overtime: ['']
+      job_id: ['', Validators.required],
+      job_department: ['', Validators.required],
+      job_category: ['', Validators.required],
+      job_time: ['', Validators.required],
+      is_overtime: ['', Validators.required]
     });
   }
 

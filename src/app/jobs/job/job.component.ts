@@ -31,15 +31,15 @@ export class JobComponent implements OnInit {
   ngOnInit() {
    // this.getJobs();
     this.jobForm = this.fb.group({
-      job_id: [''],
-      name: [''],
-      customer_id: [''],
-      order_date: [''],
-      shipping_date: [''],
+      job_id: ['', Validators.required],
+      name: ['', Validators.required],
+      customer_id: ['', Validators.required],
+      order_date: ['', Validators.required],
+      shipping_date: ['', Validators.required],
       shipped_date: [''],
-      estimated_hour: [''],
+      estimated_hour: ['', Validators.required],
       actual_hour: [''],
-      status: [''],
+      status: ['', Validators.required],
       previousjob_id: ['']
 
   });

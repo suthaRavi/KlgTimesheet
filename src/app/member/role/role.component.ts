@@ -28,8 +28,8 @@ export class RoleComponent implements OnInit {
   ngOnInit() {
     this.getRoles();
     this.roleForm = this.fb.group({
-      code: [''],
-      name: ['']
+      code: ['', Validators.required],
+      name: ['', Validators.required]
     });
   }
   getRoles(){

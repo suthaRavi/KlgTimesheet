@@ -27,8 +27,8 @@ export class StatusComponent implements OnInit {
   ngOnInit() {
     this.getStatuss();
     this.statusForm = this.fb.group({
-      code: [''],
-      name: ['']
+      code: ['', Validators.required],
+      name: ['', Validators.required]
     });
   }
   getStatuss(){

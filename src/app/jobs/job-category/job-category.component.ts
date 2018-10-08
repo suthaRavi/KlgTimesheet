@@ -27,8 +27,8 @@ export class JobCategoryComponent implements OnInit {
   ngOnInit() {
     this.getJobCategories();
     this.jobCategoryForm = this.fb.group({
-      code: [''],
-      name: ['']
+      code: ['', Validators.required],
+      name: ['', Validators.required]
     });
   }
   getJobCategories(){

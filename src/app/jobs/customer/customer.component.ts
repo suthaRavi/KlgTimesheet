@@ -28,16 +28,16 @@ export class CustomerComponent implements OnInit {
   ngOnInit() {
     this.getCustomers();
     this.customerForm = this.fb.group({
-      customer_id: [''],
-      name: [''],
-      address1: [''],
+      customer_id: ['', Validators.required],
+      name: ['', Validators.required],
+      address1: ['', Validators.required],
       address2: [''],
-      city: [''],
-      zipCode: [''],
-      state: [''],
-      country: [''],
-      phone: [''],
-      fax: ['']
+      city: ['', Validators.required],
+      zipCode: ['', Validators.required],
+      state: ['', Validators.required],
+      country: ['', Validators.required],
+      phone: ['', Validators.required],
+      fax: ['', Validators.required]
     });
   }
 

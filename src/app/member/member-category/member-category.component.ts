@@ -28,8 +28,8 @@ export class MemberCategoryComponent implements OnInit {
   ngOnInit() {
     this.getMemberCategories();
     this.memberCategoryForm = this.fb.group({
-      code: [''],
-      name: ['']
+      code: ['', Validators.required],
+      name: ['', Validators.required]
     });
   }
 

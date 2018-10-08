@@ -29,8 +29,8 @@ export class DepartmentComponent implements OnInit {
   ngOnInit() {
     this.getDepartments();
     this.departmentForm = this.fb.group({
-      code: [''],
-      name: ['']
+      code: ['', Validators.required],
+      name: ['', Validators.required]
     });
 
   }

@@ -79,7 +79,7 @@
           <div class="col-sm-4 form-group ">
 
             <select class="form-control" formControlName="department" [(ngModel)]="member.department">
-              <option value="" disabled selected>Department</option>
+              <option value="Department" disabled selected>Department</option>
               <option *ngFor="let department of departments " [value]="department.name"> {{department.name}} </option>
             </select>
           </div>

@@ -46,16 +46,16 @@ export class MemberComponent implements OnInit {
   ngOnInit() {
    // this.getMembers();
     this.memberForm = this.fb.group({
-      member_id: [''],
-      first_name: [''],
-      last_name: [''],
-      department: ['null'],
-      role: [''],
-      reporting_id: [''],
-      join_date: null,
+      member_id: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      department: ['', Validators.required],
+      role: ['', Validators.required],
+      reporting_id: ['', Validators.required],
+      join_date: [, Validators.required],
       end_date: null,
-      category: [''],
-      pay_rate: [''],
+      category: ['', Validators.required],
+      pay_rate: ['', Validators.required],
       status: ['']
     });
     this.getResources();
