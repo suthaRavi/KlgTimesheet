@@ -14,7 +14,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
      BsDropdownModule.forRoot(),
      TooltipModule.forRoot(),
      ModalModule.forRoot(),
-     BsDatepickerModule.forRoot(),
+     BsDatepickerModule.forRoot()
      
   ],
   exports: [

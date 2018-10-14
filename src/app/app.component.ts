@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-
+import { setTheme } from 'ngx-bootstrap/utils';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ export class AppComponent {
   bsdatePickerConfig: Partial<BsDatepickerConfig>
   title = 'app';
   constructor(){
-    
+    setTheme('bs3');
     this.bsdatePickerConfig = Object.assign({},
     {
       containerClass: 'theme-dark-blue',

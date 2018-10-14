@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+//import { BsDatepickerModule } from 'ngx-bootstrap/datepicker'
 import { BootstrapModule } from './bootstrap/bootstrap.module';
 
 import { AppComponent } from './app.component';
@@ -27,6 +28,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReactiveFormsModule,
     FormsModule,
     BootstrapModule,
+   //BsDatepickerModule.forRoot(),
     MemberModule,
     JobsModule,
     AppRoutingModule,

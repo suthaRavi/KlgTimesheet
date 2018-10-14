@@ -7,6 +7,8 @@ import { Job } from '../job/job';
 import { JobService } from '../job/job.service';
 import { Customer } from '../customer/customer';
 import { CustomerService } from '../customer/customer.service';
+import { JobStatus } from '../job-statuses/job-status';
+import { JobStatusService } from '../job-statuses/job-status.service';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 @Component({
   selector: 'job',
@@ -19,6 +21,7 @@ export class JobComponent implements OnInit {
   private isInsert: boolean = true;
   jobs: Job[];
   customers: Customer[];
+  jobStatus: JobStatus[];
   private job: Job = new Job;
 
   private jobForm: FormGroup;
@@ -26,7 +29,7 @@ export class JobComponent implements OnInit {
   modalRef: BsModalRef;
 
   constructor(private jobService: JobService,private customerService: CustomerService,
-    private modalService: BsModalService, private fb: FormBuilder) {  }
+   private jobStatusService: JobStatusService, private modalService: BsModalService, private fb: FormBuilder) {  }
 
   ngOnInit() {
    // this.getJobs();
@@ -166,11 +169,12 @@ export class JobComponent implements OnInit {
   getResources(){
     let jobs = this.jobService.getJobs();
     let cust = this.customerService.getCustomers();
-
-    forkJoin([jobs, cust]).subscribe(
+    let jobStatuses = this.jobStatusService.getJobStatuses();
+    forkJoin([jobs, cust, jobStatuses]).subscribe(
       results => {
         this.jobs = results[0];
         this.customers = results[1];
+        this.jobStatus = results[2]
         console.log("Jobs: ", results[0]);
         console.log("Customers: ", this.customers);
       },

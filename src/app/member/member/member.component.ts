@@ -2,7 +2,8 @@ import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core'
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-
+//import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+//import { BootstrapModule } from '../../bootstrap/bootstrap.module';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
 import { Member } from '../member/member';

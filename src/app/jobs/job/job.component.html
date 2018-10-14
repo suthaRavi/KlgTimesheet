@@ -97,9 +97,12 @@
                     <input type="text" class="form-control" placeholder="Actual Hour" 
                       formControlName="actual_hour" [(ngModel)]= "job.actual_hour"  />  
                   </div>
-                  <div class="col-sm-4 form-group ">       
-                    <input type="text" class="form-control" placeholder="Status" 
-                      formControlName="status" [(ngModel)]= "job.status"  />  
+
+                  <div class="col-sm-4 form-group ">  
+                    <select class="form-control" formControlName="status" [(ngModel)] = "job.status"> 
+                      <option value="" selected disabled  >Status</option>     
+                      <option *ngFor="let status of jobStatus" [value] = "status.name">{{status.name}}</option> 
+                    </select>
                   </div>
                 </div>
                 <div class="form-row">
@@ -107,14 +110,7 @@
                     <input type="text" class="form-control" placeholder="Previous Job" 
                       formControlName="previousjob_id" [(ngModel)]= "job.previousjob_id"  />  
                   </div>
-                  <div class="col-sm-4 form-group">
-                    <input type="text" class="form-control" placeholder=" " 
-                    formControlName="previousjob_id" [(ngModel)]= "job.previousjob_id"  />  
-                  </div>
-                  <div class="col-sm-4 form-group">
-                    <input type="text" class="form-control" placeholder=" " 
-                    formControlName="previousjob_id" [(ngModel)]= "job.previousjob_id"  />  
-                  </div>
+                  
                   </div>
                   
                 

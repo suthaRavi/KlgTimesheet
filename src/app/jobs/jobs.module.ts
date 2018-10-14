@@ -9,6 +9,8 @@ import { JobService } from './job/job.service';
 import { JobCategoryComponent } from './job-category/job-category.component';
 import { JobCategoryService } from './job-category/job-category.service';
 import { JobsRoutingModule } from './jobs-routing.module';
+import { JobStatusesComponent } from './job-statuses/job-statuses.component';
+import { JobStatusService } from './job-statuses/job-status.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,8 +19,8 @@ import { JobsRoutingModule } from './jobs-routing.module';
     JobsRoutingModule
   ],
   declarations: [CustomerComponent, JobComponent, 
-    JobCategoryComponent],
-    providers: [CustomerService, JobService, 
-      JobCategoryService]
+    JobCategoryComponent, JobStatusesComponent],
+    providers: [CustomerService, JobService, JobCategoryService,
+                  JobStatusService]
 })
 export class JobsModule { }
