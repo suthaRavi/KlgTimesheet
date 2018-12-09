@@ -1,0 +1,33 @@
+<ng-template #template>
+
+
+
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{authMode}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+     <div class="row">
+
+     
+      <register 
+          *ngIf="isRegisterMode()">
+      </register>
+    </div>    
+  </div>
+  
+  <div class="modal-footer">
+    <div class="row">
+      <span *ngIf="isLoginMode()">
+     <p>   Need an account? <a (click)="authMode='Register'">Click here to register.</a></p>
+      <p class="">   <a (click)="authMode='ResetPassword'" >Fergot Password </a></p>
+      </span>
+      <span *ngIf="isRegisterMode()">
+        Already have an account? <a (click)="authMode='Login'">Click here to login.</a>
+      </span>
+    </div>
+  </div>
+
+</ng-template>

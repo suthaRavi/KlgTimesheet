@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import * as modal from 'ngx-bootstrap/modal';
 
 import { Customer } from '../customer/customer';
 import { CustomerService } from '../customer/customer.service';
@@ -14,16 +14,16 @@ import { CustomerService } from '../customer/customer.service';
 export class CustomerComponent implements OnInit {
   @Input('customer-mode') customerMode: 'Add' | 'Update' = 'Add';
   @ViewChild('template') template: TemplateRef<any>
-  private isInsert: boolean = true;
+  public isInsert: boolean = true;
   customers: Customer[];
-  private customer: Customer = new Customer;
+  public customer: Customer = new Customer;
 
-  private customerForm: FormGroup;
+  public customerForm: FormGroup;
 
-  modalRef: BsModalRef;
+  modalRef: modal.BsModalRef;
 
   constructor(private customerService: CustomerService,
-    private modalService: BsModalService, private fb: FormBuilder) {  }
+    private modalService: modal.BsModalService, private fb: FormBuilder) {  }
 
   ngOnInit() {
     this.getCustomers();

@@ -1,0 +1,33 @@
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSignUpSubmit()"  novalidate >
+    <div class="form-row" >
+      <div class="col-sm-4 form-group ">       
+        <input type="text" class="form-control" placeholder="E mail" 
+          formControlName="login" [(ngModel)] = "registerData.login"   />  
+      </div>
+      <div class="col-sm-4 form-group ">       
+        <input type="password" class="form-control" placeholder="password" 
+          formControlName="password" [(ngModel)] = "registerData.password"  />  
+      </div>
+      <div class="col-sm-4 form-group ">       
+        <input type="password" class="form-control" placeholder="confirm password" 
+          formControlName="confirm password" [(ngModel)] = "registerData.passwordConfirmation"  />  
+      </div>  
+      <div>
+
+      </div>   
+ 
+    
+  
+   
+    <div>
+      <div  class="col s4">
+        <button type="submit"  class="btn btn-success pull-right" >Register</button>
+      </div>      
+      <div class="col s4">
+        <button type="button" class=" btn lime lightern-1 pull-right close_btn " (click)="modalRef.hide()">Close</button>
+       
+      </div>
+    </div>
+  </div>
+  </form>

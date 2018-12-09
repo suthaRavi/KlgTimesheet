@@ -52,14 +52,21 @@
           <a dropdownToggle role="button"> <!-- {2} -->
             Reports <span class="caret"></span></a>
           <ul *dropdownMenu class="dropdown-menu"> <!-- {3} -->
-            <li><a [routerLink]="['/timestudy']">Time Study</a></li>
-
-              
+            <li><a [routerLink]="['/timestudy']">Time Study</a></li>             
 
           </ul>
-
-
+      </li>
+      
+      <li *ngIf="!tokenService.userSignedIn()"> 
+        <a>LOGIN</a>
+      </li>
+      <li *ngIf="!tokenService.userSignedIn() "> 
+        <a (click)="presentAuthDialog('Register')" >REGISTER</a>
+      </li>     
+      <li *ngIf="(tokenService.userSignedIn() )"> 
+        <a (click)="logOut()">LOGOUT</a>
       </li>
       </ul>
   </div>
 </nav>
+<auth-dialog #authDialog> </auth-dialog>
