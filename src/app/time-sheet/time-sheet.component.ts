@@ -95,12 +95,12 @@ getResources(){
   forkJoin([ mem,dep, job 
             ]).subscribe(
     results => {
-      console.log(" Results 0 " , results[0]);
+      console.log(" Members " , results[0]);
       this.members = results[0];
       this.departments = results[1];
-      console.log("Results 1  ", results[1]);
+      console.log("Departments  ", results[1]);
       this.jobs = results[2];
-      console.log(" Results 2 ", results[2])
+      console.log(" Jobs ", results[2])
 
     }, 
     (err: HttpErrorResponse) => {
