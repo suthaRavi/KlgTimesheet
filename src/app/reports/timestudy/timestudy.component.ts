@@ -1,8 +1,8 @@
-import { Component, OnChanges,   OnInit, ViewChild, Input, SimpleChanges, TemplateRef } from '@angular/core';
+import { Component, OnChanges, OnInit, ViewChild, Input, SimpleChanges, TemplateRef } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { forkJoin } from 'rxjs/observable/forkJoin';
-import { FormArray, FormBuilder,FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 //import {ReactiveFormsModule} from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 //import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -27,7 +27,7 @@ import { TimeSheetService } from '../../time-sheet/time-sheet.service';
 })
 
 
-export class TimestudyComponent implements  OnChanges {
+export class TimestudyComponent implements OnChanges {
   @ViewChild('updateTimesheet') updateTimesheet: TemplateRef<any>
   @ViewChild('searchForm') form: any;
   members: Member[];
@@ -38,37 +38,37 @@ export class TimestudyComponent implements  OnChanges {
   job_times: JobTime[];
   public data: TimeSheet[];
   public tsForm: FormGroup;
-  
- 
+
+
   modalRef: BsModalRef;
-  pipe = new DatePipe('en-US');  
+  pipe = new DatePipe('en-US');
   //public dpConfig: Partial<BsDatepickerConfig> = new BsDatepickerConfig();
   //@ViewChild('searchForm') form: any;
   constructor(private memberService: MemberService, private jobService: JobService,
-              private timeSheetService: TimeSheetService, private departmentService: DepartmentService,
-              private jobCategoryService: JobCategoryService,
-              private fb: FormBuilder, private modalService: BsModalService) {
-              
-               }
+    private timeSheetService: TimeSheetService, private departmentService: DepartmentService,
+    private jobCategoryService: JobCategoryService,
+    private fb: FormBuilder, private modalService: BsModalService) {
 
-  ngOnChanges(){
-    
-  }               
+  }
+
+  ngOnChanges() {
+
+  }
 
   ngOnInit() {
     this.tsForm = this.fb.group({
-      first_name: [{value:''}, Validators.required],
-      job_date: [{value: null}, Validators.required],
-      job_times: this.fb.array([])
+      first_name: [{ value: '' }, Validators.required],
+      job_date: [{ value: null }, Validators.required],
+      job_times_attributes: this.fb.array([])
     });
     this.getResources();
-  //  const now = Date.now();
- // const myFormattedDate = this.pipe.transform(now, 'yyyy-M-dd');
- // console.log("Date ", myFormattedDate);
+    //  const now = Date.now();
+    // const myFormattedDate = this.pipe.transform(now, 'yyyy-M-dd');
+    // console.log("Date ", myFormattedDate);
 
-    
+
   }
-  init_time(){
+  init_time() {
     return this.fb.group({
       job_id: ['', Validators.required],
       job_department: ['', Validators.required],
@@ -78,81 +78,96 @@ export class TimestudyComponent implements  OnChanges {
     });
   }
 
-  getResources()
-  {
+  getResources() {
     let mem = this.memberService.getMembers();
     let job = this.jobService.getJobs();
-    let dep =  this.departmentService.getDepartments();
+    let dep = this.departmentService.getDepartments();
     let jobCategory = this.jobCategoryService.getJobCategories();
-    forkJoin([ mem, job, dep, jobCategory
+    forkJoin([mem, job, dep, jobCategory
     ]).subscribe(
-        results => {
-          console.log(" Member " , results[0]);
-          this.members = results[0];
-          this.jobs = results[1];
-          this.departments = results[2];
-          this.jobCategory = results[3];
-          console.log("Category  ", this.jobCategory);         
+      results => {
+        console.log(" Member ", results[0]);
+        this.members = results[0];
+        this.jobs = results[1];
+        this.departments = results[2];
+        this.jobCategory = results[3];
+        console.log("Category  ", this.jobCategory);
 
-        }, 
-        (err: HttpErrorResponse) => {
-          if(err.error instanceof Error){
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
           console.log(' client error ', err.error.message);
-          }else{
+        } else {
           console.log('  Backend returned status code: ', err.status);
           console.log('  Response body: ', err.error);
-          }
         }
+      }
 
-      )
+    )
 
   }
 
-  get jobtimeFormArray(): FormArray{
-    return this.tsForm.get('job_times') as FormArray;
+  get jobtimeFormArray(): FormArray {
+    return this.tsForm.get('job_times_attributes') as FormArray;
   }
 
-  onSubmit(form: any){
-    console.log("search type ", this.jobs[0].job_id)
-    if(this.form.valid){
-//      alert(form.first_name); 
+  onSubmit(form: any) {
+    console.log("search type ", form);
+    if (this.form.valid) {
+      //      alert(form.first_name); 
       //this.timeSheets = [];
-      if((typeof form.first_name!= 'undefined' && form.first_name) && 
-        (typeof form.job_date!= 'undefined' && form.job_date) ){
+      if ((typeof form.first_name != 'undefined' && form.first_name) &&
+        (typeof form.job_date != 'undefined' && form.job_date)) {
         form.job_date = this.pipe.transform(form.job_date, 'yyyy-M-dd');
-       // form.end_date = this.pipe.transform(form.end_date, 'yyyy-M-dd');
+        // form.end_date = this.pipe.transform(form.end_date, 'yyyy-M-dd');
         console.log("*** Job date ", form.job_date);
-        this.timeSheetService.getTimeSheets(form.first_name,form.job_date).subscribe(
-          results =>{
-            
+        this.timeSheetService.getTimeSheets(form.first_name, form.job_date).subscribe(
+          results => {
+
             this.data = results;
-           // console.log("this data ", this.data);
+            // console.log("this data ", this.data);
             this.timeSheet = this.data[0];
-           // console.log("this result ", this.timeSheet.job_times);
-            
+            // console.log("this result ", this.timeSheet.job_times);
+
             this.job_times = this.timeSheet.job_times;
 
-           // console.log(" ***Time sheet ", this.timeSheet);
+            // console.log(" ***Time sheet ", this.timeSheet);
             console.log("Job Times ", this.timeSheet.job_times);
-            if(this.timeSheet ){
+            if (this.timeSheet) {
               this.createFormWithData(this.timeSheet);
               this.modalRef = this.modalService.show(this.updateTimesheet)
               this.form.reset();
               console.log("True data ", this.timeSheet.first_name);
             }
-            else{
-//              console.log("Null data");
+            else {
+              //              console.log("Null data");
               alert("Data not found");
             }
-            
+
             //console.log("Data ", this.timeSheets);
-          // console.log("First name ", this.timeSheets.first_name);
-          // console.log("Job Times ", this.timeSheets.job_times[0].job_time);
+            // console.log("First name ", this.timeSheets.first_name);
+            // console.log("Job Times ", this.timeSheets.job_times[0].job_time);
           },
           (err: HttpErrorResponse) => {
-            if(err.error instanceof Error){
+            if (err.error instanceof Error) {
               console.log(' client error ', err.error.message);
-            }else{
+            } else {
+              console.log('  Backend returned status code: ', err.status);
+              console.log('  Response body: ', err.error);
+            }
+          }
+        )
+      }
+      if(typeof form.jobId != 'undefined' && form.jobId){
+        console.log('Search Job Time ', form.jobId);
+        this.timeSheetService.getJobTimes(form.jobId).subscribe(
+          results => {
+            console.log('Job Times ', results);
+          }, 
+          (err: HttpErrorResponse) => {
+            if (err.error instanceof Error) {
+              console.log(' client error ', err.error.message);
+            } else {
               console.log('  Backend returned status code: ', err.status);
               console.log('  Response body: ', err.error);
             }
@@ -160,31 +175,65 @@ export class TimestudyComponent implements  OnChanges {
         )
       }
     }
-    else{alert(" Form is not valid");}
+    else { alert(" Form is not valid"); }
   }
 
-  createFormWithData(ts: TimeSheet){
+  createFormWithData(ts: TimeSheet) {
     this.tsForm.patchValue({
       first_name: ts.first_name,
       job_date: ts.job_date
     })
-    let jobtimeFormGroups = ts.job_times.map(job_time => this.fb.group(job_time) );
+    let jobtimeFormGroups = ts.job_times.map(job_time => this.fb.group(job_time));
     let jobtimeFormArray = this.fb.array(jobtimeFormGroups);
-    this.tsForm.setControl('job_times', jobtimeFormArray);
+    this.tsForm.setControl('job_times_attributes', jobtimeFormArray);
   }
 
-  addTime(){
-    const control = <FormArray> this.tsForm.controls['job_times_attributes'];
+  addTime() {
+    const control = <FormArray>this.tsForm.controls['job_times_attributes'];
     control.push(this.init_time());
   }
-  removeTime(i){
+  removeTime(i: number) {
     alert("Index " + i);
+  console.log('remove job time ', this.job_times[i]);
+  this.timeSheetService.deleteJobTime(this.job_times[i].id).subscribe(
+    response => 
+    { 
+      console.log("Job time deleted ");
+    },
+    (err: HttpErrorResponse) => 
+    {
+      if(err.error instanceof Error){
+        console.log(' client error ', err.error.message);
+      }else{
+        console.log('  Backend returned status code: ', err.status);
+        console.log('  Response body: ', err.error);
+      }
+      this.modalService.hide(1); 
+    }
+  )
+  console.log("Delete job time ", this.job_times[i].id)
     this.jobtimeFormArray.removeAt(i);
-  //const controle = <FormArray> this.tsForm.controls['job_times_attributes'];
- // controle.removeAt(i);
+    //const controle = <FormArray> this.tsForm.controls['job_times_attributes'];
+    // controle.removeAt(i);
   }
-  update(){
+  update() {
     console.log("Form Value ", this.tsForm.value);
+    console.log("Form Job times ", this.tsForm.value.job_times_attributes[0].time_sheet_id);
+    this.timeSheetService.updateTimeSheet(this.tsForm.value,this.tsForm.value.job_times_attributes[0].time_sheet_id ).subscribe(
+      response =>{
+        console.log('Update Response ', response );
+      },
+      (err: HttpErrorResponse) => 
+      {
+        if(err.error instanceof Error){
+          console.log(' client error ', err.error.message);
+        }else{
+          console.log('  Backend returned status code: ', err.status);
+          console.log('  Response body: ', err.error);
+        }
+        this.modalService.hide(1); 
+      } 
+    )
   }
   /** 
   search(form: any){

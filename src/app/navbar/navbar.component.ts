@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularTokenService } from 'angular-token';
-//import { RegisterComponent} from '../auth/register/register.component';
+import { RegisterComponent} from '../auth/register/register.component';
 import {AuthDialogComponent } from '../auth/auth-dialog/auth-dialog.component'
 @Component({
   selector: 'navbar',
@@ -9,7 +9,7 @@ import {AuthDialogComponent } from '../auth/auth-dialog/auth-dialog.component'
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  //@Input() registerComponent: RegisterComponent;
+  @Input() registerComponent: RegisterComponent;
  // @ViewChild('testDialog') testDialog: RegisterComponent;
   @ViewChild('authDialog') authDialog: AuthDialogComponent;
   

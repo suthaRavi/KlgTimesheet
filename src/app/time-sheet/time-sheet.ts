@@ -8,6 +8,7 @@ export class TimeSheet {
 }
 
 export class JobTime {
+    id: number;
     job_id: string;
     job_department: string;
     job_category: string;

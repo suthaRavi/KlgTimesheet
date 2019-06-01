@@ -11,6 +11,8 @@ import { MemberService } from '.././member/member/member.service';
 import { Member } from '.././member/member/member';
 import { Job } from '.././jobs/job/job';
 import { JobService } from '.././jobs/job/job.service';
+import { JobCategory } from '.././jobs/job-category/job-category';
+import { JobCategoryService } from '.././jobs/job-category/job-category.service';
 import { TimeSheet, JobTime } from './time-sheet';
 import { TimeSheetService } from '../time-sheet/time-sheet.service';
 
@@ -22,22 +24,22 @@ import { TimeSheetService } from '../time-sheet/time-sheet.service';
 export class TimeSheetComponent implements OnInit {
   public timeSheetForm: FormGroup;
   public total_hours: number = 0;
-  categories: string[];
+ 
   _jobTime: JobTime[];
    today: number = Date.now() ;
   members:  Member[];
   departments: Department[];
   jobs: Job[];
-
+  jobCategories: JobCategory[];
   
   constructor(private fb: FormBuilder, private memberService: MemberService,
     private departmentService: DepartmentService, private jobService: JobService,
-    private timeSheetService: TimeSheetService) {
+    private timeSheetService: TimeSheetService, private jobCategoryService: JobCategoryService) {
 
    }
 
   ngOnInit() {
-    this.categories = ['Finishing', 'Roughing', 'Polishing'];
+   
     this.timeSheetForm = this.fb.group({
       first_name: [''],
       job_date: null,
@@ -92,7 +94,8 @@ getResources(){
   let mem = this.memberService.getMembers();
   let dep = this.departmentService.getDepartments();
   let job = this.jobService.getJobs();
-  forkJoin([ mem,dep, job 
+  let jobCategory = this.jobCategoryService.getJobCategories();
+  forkJoin([ mem,dep, job, jobCategory 
             ]).subscribe(
     results => {
       console.log(" Members " , results[0]);
@@ -101,7 +104,7 @@ getResources(){
       console.log("Departments  ", results[1]);
       this.jobs = results[2];
       console.log(" Jobs ", results[2])
-
+      this.jobCategories = results[3];
     }, 
     (err: HttpErrorResponse) => {
       if(err.error instanceof Error){
@@ -121,8 +124,11 @@ save(){
   this.timeSheetService.addTimeSheet(this.timeSheetForm.value).subscribe(
     res => {
       console.log(" TimeSheet added")
-      this.timeSheetForm.reset();
-      alert("Saved");
+      //this.timeSheetForm.reset();
+     // console.log('Time sheet ', this.timeSheetForm.value.job_times_attributes.length)
+      window.location.reload();
+  
+     // alert("Saved");
     },
                                                                                    
     (err: HttpErrorResponse) => {

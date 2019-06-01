@@ -2,14 +2,20 @@
     <h3 class="text-center">Time Study</h3>
     <form novalidate #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm.value)">
         <div class="col-sm-12">
-            <div class="form-group col-sm-6">
-                <select class="form-control" name="first_name" ngModel required>
+            <div class="form-group col-sm-4">
+                <select class="form-control" name="first_name" ngModel >
                     <option selected disabled value="">First Name</option>
                     <option *ngFor="let member of members" [value]="member.first_name">{{member.first_name}}</option>
                 </select>
             </div>
-            <div class="col-sm-6 form-group input-group date ">
-                <input type="text" class="form-control" name="job_date" ngModel placeholder="Start date" bsDatepicker required />
+            <div class="form-group col-sm-4">
+                    <select class="form-control" name="jobId" ngModel >
+                        <option selected disabled value="">Jobs</option>
+                        <option *ngFor="let job of jobs" [value]="job.job_id">{{job.job_id}}</option>
+                    </select>
+                </div>
+            <div class="col-sm-4 form-group input-group date ">
+                <input type="text" class="form-control" name="job_date" ngModel placeholder="Start date" bsDatepicker  />
             </div>
         </div>
         <div class="clear-fix"></div>
@@ -49,13 +55,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div  class="" formArrayName="job_times">
+                                <div  class="" formArrayName="job_times_attributes">
                                     <div >
                                         <div *ngFor="let jt of jobtimeFormArray.controls; let i = index " [formGroupName] = i class="">
                                             <div class="panel panel-default"  >
                                                 <div class="panel-heading">
+                                                    <div>
                                                     <span>Time {{i + 1}}</span>
                                                     <span class="glyphicon glyphicon-remove pull-right" *ngIf=" i > 0" (click)="removeTime(i)"></span>
+                                                    <span class="fa fa-plus pull-right" *ngIf=" i == 0" (click)="addTime()"></span>
+                                                </div>
+
                                                 </div>
                                                 <div class="panel-body"  >
                                                     <div class="col-xs-3">

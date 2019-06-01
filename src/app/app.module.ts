@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AngularTokenModule } from 'angular-token';
 import { BootstrapModule } from './bootstrap/bootstrap.module';
 
+
 import { AppComponent } from './app.component';
 import { MemberModule } from './member/member.module';
 import { JobsModule } from './jobs/jobs.module';
@@ -28,7 +29,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReactiveFormsModule,
     FormsModule,
     BootstrapModule,
-    AngularTokenModule.forRoot({}),
+    AngularTokenModule.forRoot({
+      apiBase: 'http://localhost:3000'
+    }),
     MemberModule,
     JobsModule,
     AppRoutingModule,

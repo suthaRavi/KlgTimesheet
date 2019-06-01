@@ -1,17 +1,21 @@
 
   <form [formGroup]="registerForm" (ngSubmit)="onSignUpSubmit()"  novalidate >
     <div class="form-row" >
-      <div class="col-sm-4 form-group ">       
+        <div class="col-sm-6 form-group ">       
+            <input type="text" class="form-control" placeholder="Name" 
+              formControlName="name"    />  
+          </div>
+      <div class="col-sm-6 form-group ">       
         <input type="text" class="form-control" placeholder="E mail" 
-          formControlName="login" [(ngModel)] = "registerData.login"   />  
+          formControlName="login"    />  
       </div>
-      <div class="col-sm-4 form-group ">       
+      <div class="col-sm-6 form-group ">       
         <input type="password" class="form-control" placeholder="password" 
-          formControlName="password" [(ngModel)] = "registerData.password"  />  
+          formControlName="password"   />  
       </div>
-      <div class="col-sm-4 form-group ">       
+      <div class="col-sm-6 form-group ">       
         <input type="password" class="form-control" placeholder="confirm password" 
-          formControlName="confirm password" [(ngModel)] = "registerData.passwordConfirmation"  />  
+          formControlName="passwordConfirmation"   />  
       </div>  
       <div>
 
@@ -22,10 +26,11 @@
    
     <div>
       <div  class="col s4">
-        <button type="submit"  class="btn btn-success pull-right" >Register</button>
+        <button type="submit"  class="btn btn-success pull-right"
+          [disabled]="!registerForm.valid" >Register</button>
       </div>      
       <div class="col s4">
-        <button type="button" class=" btn lime lightern-1 pull-right close_btn " (click)="modalRef.hide()">Close</button>
+        <button type="button" class=" btn lime lightern-1 pull-right close_btn " (click)="modalClose()">Close</button>
        
       </div>
     </div>

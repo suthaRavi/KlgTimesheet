@@ -1,0 +1,29 @@
+
+  <form [formGroup]="signinForm" (ngSubmit)="onSignInSubmit()"  novalidate >
+    <div class="form-row" >
+      <div class="col-sm-6 form-group ">       
+        <input type="text" class="form-control" placeholder="E mail" 
+          formControlName="login"    />  
+      </div>
+      <div class="col-sm-6 form-group ">       
+        <input type="password" class="form-control" placeholder="password" 
+          formControlName="password"   />  
+      </div>
+ 
+      <div class="col-sm-4 form-group ">
+
+      </div>     
+  
+   
+    <div>
+      <div  class="col s12">
+        <button type="submit"  class="btn btn-success pull-right" >Signin</button>
+      </div>      
+      <div class="col s4">
+        <button type="button" class=" btn lime lightern-1 pull-right close_btn " (click)="modalClose()">Close</button>
+       
+      </div>
+    </div>
+  </div>
+  </form>
+

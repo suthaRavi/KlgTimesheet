@@ -16,10 +16,7 @@ export class AuthDialogComponent implements OnInit {
 
   ngOnInit() {
   }
-  openModal() {
-    alert("open dialog");
-   // this.modalRef = this.modalService.show(this.template);
-  }
+
   openDialog(mode: 'Login' | 'Register' | 'ResetPassword' = 'Login'
         ){
     this.authMode = mode;

@@ -57,10 +57,10 @@
           </ul>
       </li>
       
-      <li *ngIf="!tokenService.userSignedIn()"> 
-        <a>LOGIN</a>
+      <li *ngIf="!tokenService.userSignedIn()" role="button"> 
+        <a (click)="presentAuthDialog('Login')">LOGIN</a>
       </li>
-      <li *ngIf="!tokenService.userSignedIn() "> 
+      <li *ngIf="!tokenService.userSignedIn() " role="button"> 
         <a (click)="presentAuthDialog('Register')" >REGISTER</a>
       </li>     
       <li *ngIf="(tokenService.userSignedIn() )"> 

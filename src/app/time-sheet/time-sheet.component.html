@@ -52,7 +52,7 @@
                 <label>Category</label>
                   <select class="form-control" formControlName="job_category" >
                     <option value="" disabled selected>Category</option>
-                    <option *ngFor="let category of categories " [value]="category">{{category}}</option>
+                    <option *ngFor="let category of jobCategories " [value]="category.name">{{category.name}}</option>
                   </select>
                   <!--
                 
