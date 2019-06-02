@@ -13,22 +13,29 @@
       <signin *ngIf="isLoginMode()"></signin>
      
       <register *ngIf="isRegisterMode()"> </register>
+      <reset-password *ngIf="isResetPasswordMode()" ></reset-password>
     </div>    
   </div>
   
-  <div class="modal-footer">
+  <div class="modal-footer"> 
+    <!-- 
       <div class="col s4">
           <button type="button" class=" btn lime lightern-1 pull-right close_btn " (click)="modalRef.hide()">Close</button>
          
         </div>
+    -->    
     <div class="row">
       <span *ngIf="isLoginMode()">
      <p>   Need an account? <a (click)="authMode='Register'">Click here to register.</a></p>
       <p class="">   <a (click)="authMode='ResetPassword'" >Fergot Password </a></p>
       </span>
       <span *ngIf="isRegisterMode()">
-        Already have an account? <a (click)="authMode='Login'">Click here to login.</a>
+     <p>   Already have an account? <a (click)="authMode='Login'">Click here to login.</a></p>
       </span>
+      <span *ngIf="isResetPasswordMode()">
+        <p>   Need an account? <a (click)="authMode='Register'">Click here to register.</a></p>
+         <p class="">   Already have an account? <a (click)="authMode='Login'">Click here to login.</a> </p>
+         </span>
     </div>
   </div>
 

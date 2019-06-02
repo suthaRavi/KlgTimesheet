@@ -8,6 +8,7 @@ import { AngularTokenModule } from 'angular-token';
 import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SigninComponent } from './signin/signin.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -18,7 +19,7 @@ import { SigninComponent } from './signin/signin.component';
     }),
     AuthRoutingModule
   ],
-  declarations: [RegisterComponent, AuthDialogComponent, SigninComponent],
+  declarations: [RegisterComponent, AuthDialogComponent, SigninComponent, ResetPasswordComponent],
   providers: [AngularTokenModule],
   exports: [RegisterComponent, AuthDialogComponent, SigninComponent]
 })
