@@ -62,8 +62,8 @@ export class TimestudyComponent implements OnChanges {
       job_times_attributes: this.fb.array([])
     });
     this.getResources();
-    //  const now = Date.now();
-    // const myFormattedDate = this.pipe.transform(now, 'yyyy-M-dd');
+    //  const today = Date.now();
+    // const myFormattedDate = this.pipe.transform(today, 'yyyy-M-dd');
     // console.log("Date ", myFormattedDate);
 
 
@@ -125,28 +125,24 @@ export class TimestudyComponent implements OnChanges {
           results => {
 
             this.data = results;
-            // console.log("this data ", this.data);
-            this.timeSheet = this.data[0];
-            // console.log("this result ", this.timeSheet.job_times);
+            console.log("this data ", this.data);
+            if (this.data.length > 0) {
+              this.timeSheet = this.data[0];         
+              this.job_times = this.timeSheet.job_times;
+              // console.log(" ***Time sheet ", this.timeSheet);
+              //console.log("Job Times ", this.timeSheet.job_times);
 
-            this.job_times = this.timeSheet.job_times;
-
-            // console.log(" ***Time sheet ", this.timeSheet);
-            console.log("Job Times ", this.timeSheet.job_times);
-            if (this.timeSheet) {
               this.createFormWithData(this.timeSheet);
               this.modalRef = this.modalService.show(this.updateTimesheet)
               this.form.reset();
               console.log("True data ", this.timeSheet.first_name);
+
             }
             else {
               //              console.log("Null data");
               alert("Data not found");
             }
 
-            //console.log("Data ", this.timeSheets);
-            // console.log("First name ", this.timeSheets.first_name);
-            // console.log("Job Times ", this.timeSheets.job_times[0].job_time);
           },
           (err: HttpErrorResponse) => {
             if (err.error instanceof Error) {
@@ -158,22 +154,7 @@ export class TimestudyComponent implements OnChanges {
           }
         )
       }
-      if(typeof form.jobId != 'undefined' && form.jobId){
-        console.log('Search Job Time ', form.jobId);
-        this.timeSheetService.getJobTimes(form.jobId).subscribe(
-          results => {
-            console.log('Job Times ', results);
-          }, 
-          (err: HttpErrorResponse) => {
-            if (err.error instanceof Error) {
-              console.log(' client error ', err.error.message);
-            } else {
-              console.log('  Backend returned status code: ', err.status);
-              console.log('  Response body: ', err.error);
-            }
-          }
-        )
-      }
+
     }
     else { alert(" Form is not valid"); }
   }
@@ -194,24 +175,22 @@ export class TimestudyComponent implements OnChanges {
   }
   removeTime(i: number) {
     alert("Index " + i);
-  console.log('remove job time ', this.job_times[i]);
-  this.timeSheetService.deleteJobTime(this.job_times[i].id).subscribe(
-    response => 
-    { 
-      console.log("Job time deleted ");
-    },
-    (err: HttpErrorResponse) => 
-    {
-      if(err.error instanceof Error){
-        console.log(' client error ', err.error.message);
-      }else{
-        console.log('  Backend returned status code: ', err.status);
-        console.log('  Response body: ', err.error);
+    console.log('remove job time ', this.job_times[i]);
+    this.timeSheetService.deleteJobTime(this.job_times[i].id).subscribe(
+      response => {
+        console.log("Job time deleted ");
+      },
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
+          console.log(' client error ', err.error.message);
+        } else {
+          console.log('  Backend returned status code: ', err.status);
+          console.log('  Response body: ', err.error);
+        }
+        this.modalService.hide(1);
       }
-      this.modalService.hide(1); 
-    }
-  )
-  console.log("Delete job time ", this.job_times[i].id)
+    )
+    console.log("Delete job time ", this.job_times[i].id)
     this.jobtimeFormArray.removeAt(i);
     //const controle = <FormArray> this.tsForm.controls['job_times_attributes'];
     // controle.removeAt(i);
@@ -219,20 +198,19 @@ export class TimestudyComponent implements OnChanges {
   update() {
     console.log("Form Value ", this.tsForm.value);
     console.log("Form Job times ", this.tsForm.value.job_times_attributes[0].time_sheet_id);
-    this.timeSheetService.updateTimeSheet(this.tsForm.value,this.tsForm.value.job_times_attributes[0].time_sheet_id ).subscribe(
-      response =>{
-        console.log('Update Response ', response );
+    this.timeSheetService.updateTimeSheet(this.tsForm.value, this.tsForm.value.job_times_attributes[0].time_sheet_id).subscribe(
+      response => {
+        console.log('Update Response ', response);
       },
-      (err: HttpErrorResponse) => 
-      {
-        if(err.error instanceof Error){
+      (err: HttpErrorResponse) => {
+        if (err.error instanceof Error) {
           console.log(' client error ', err.error.message);
-        }else{
+        } else {
           console.log('  Backend returned status code: ', err.status);
           console.log('  Response body: ', err.error);
         }
-        this.modalService.hide(1); 
-      } 
+        this.modalService.hide(1);
+      }
     )
   }
   /** 
