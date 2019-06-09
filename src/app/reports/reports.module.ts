@@ -7,6 +7,7 @@ import { BootstrapModule } from '../bootstrap/bootstrap.module';
 
 import { ReportsRoutingModule } from './reports-routing.module';
 import { TimestudyComponent } from './timestudy/timestudy.component';
+import { JobReportComponent } from './job-report/job-report.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { TimestudyComponent } from './timestudy/timestudy.component';
     ReportsRoutingModule,
     BootstrapModule
   ],
-  declarations: [TimestudyComponent]
+  declarations: [TimestudyComponent, JobReportComponent]
 })
 export class ReportsModule { }

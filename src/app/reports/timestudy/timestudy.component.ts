@@ -112,7 +112,7 @@ export class TimestudyComponent implements OnChanges {
   }
 
   onSubmit(form: any) {
-    console.log("search type ", form);
+    console.log("search type ", form.value);
     if (this.form.valid) {
       //      alert(form.first_name); 
       //this.timeSheets = [];

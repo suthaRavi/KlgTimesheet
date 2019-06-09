@@ -1,0 +1,28 @@
+<div class="container">
+  <h3 class="text-center">Job Report</h3>
+  <form novalidate [formGroup]= "tsForm"  (ngSubmit)="onSubmit()">
+    <div class="col-sm-12">
+
+      <div class="form-group col-sm-6">
+        <select class="form-control" name="jobId" formControlName="job_id" >
+          <option selected disabled value="">Jobs</option>
+          <option *ngFor="let job of jobs" [value]="job.job_id" >{{job.job_id}} </option>
+        </select>
+      </div>
+
+      <div class="col-sm-6 form-group input-group date ">
+        <input type="text" class="form-control" name="job_date"  placeholder="Date" 
+        bsDatepicker formControlName="job_date" />
+      </div>
+
+      <div class="clear-fix"></div>
+      <div class=" pull-right ">
+        <button type="submit" class="btn btn-success">Search</button>
+      </div>
+    </div>
+  </form>
+  <pre>
+    <p>{{tsForm.value | json}}</p>
+  </pre>
+
+</div>
