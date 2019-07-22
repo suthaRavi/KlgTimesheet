@@ -37,7 +37,13 @@ export class TimestudyComponent implements OnChanges {
   timeSheet: TimeSheet;
   job_times: JobTime[];
   public data: TimeSheet[];
-  public tsForm: FormGroup;
+  //public tsForm: FormGroup;
+
+  public tsForm= new FormGroup ({
+    first_name: new FormControl(''),
+    job_date: new FormControl('')
+  })
+  today = new Date().toJSON();
 
 
   modalRef: BsModalRef;
@@ -56,11 +62,13 @@ export class TimestudyComponent implements OnChanges {
   }
 
   ngOnInit() {
-    this.tsForm = this.fb.group({
-      first_name: [{ value: '' }, Validators.required],
-      job_date: [{ value: null }, Validators.required],
-      job_times_attributes: this.fb.array([])
-    });
+    this.today = this.pipe.transform(this.today, 'M/dd/yyyy')
+    // this.tsForm = this.fb.group({
+    //   first_name: [ Validators.required],
+    //   job_date: [ Validators.required],
+    //   job_times_attributes: this.fb.array([])
+    // });
+    this.tsForm.controls.job_date.setValue(this.today);
     this.getResources();
     //  const today = Date.now();
     // const myFormattedDate = this.pipe.transform(today, 'yyyy-M-dd');
@@ -174,8 +182,11 @@ export class TimestudyComponent implements OnChanges {
     control.push(this.init_time());
   }
   removeTime(i: number) {
-    alert("Index " + i);
+  
     console.log('remove job time ', this.job_times[i]);
+    if(this.job_times[i]){
+        alert("Index IF I " + i);
+    
     this.timeSheetService.deleteJobTime(this.job_times[i].id).subscribe(
       response => {
         console.log("Job time deleted ");
@@ -186,14 +197,17 @@ export class TimestudyComponent implements OnChanges {
         } else {
           console.log('  Backend returned status code: ', err.status);
           console.log('  Response body: ', err.error);
+          
         }
         this.modalService.hide(1);
       }
     )
     console.log("Delete job time ", this.job_times[i].id)
-    this.jobtimeFormArray.removeAt(i);
+    
     //const controle = <FormArray> this.tsForm.controls['job_times_attributes'];
     // controle.removeAt(i);
+  }
+  this.jobtimeFormArray.removeAt(i);
   }
   update() {
     console.log("Form Value ", this.tsForm.value);

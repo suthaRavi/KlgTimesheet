@@ -16,12 +16,14 @@ import { AuthModule } from './auth/auth.module';
 import { TimeSheetComponent } from './time-sheet/time-sheet.component';
 import { TimeSheetService } from './time-sheet/time-sheet.service';
 import { NavbarComponent } from './navbar/navbar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TimeSheetComponent,
-    NavbarComponent
+    NavbarComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,    

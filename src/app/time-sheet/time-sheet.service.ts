@@ -46,8 +46,8 @@ export class TimeSheetService {
    return this.httpClient.delete<JobTime[]>(this.timeStudyUrl + id);
  }
 
- getJobTimeByDateByJobId(job_id: string, jobDate: string){
+ getJobTimeByDateByJobId(job_id: string, jobDate: string): Observable<TimeSheet[]>{
   let queryString = new HttpParams().set('job_date', jobDate).set('job_id', job_id);
- return this.httpClient.get(this.timeSheetUrl, {params: queryString, responseType: 'json'})
+ return this.httpClient.get<TimeSheet[]>(this.timeSheetUrl, {params: queryString, responseType: 'json'})
 }
 }

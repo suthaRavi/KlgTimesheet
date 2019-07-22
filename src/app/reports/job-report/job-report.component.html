@@ -21,8 +21,33 @@
       </div>
     </div>
   </form>
+  <!--  
   <pre>
     <p>{{tsForm.value | json}}</p>
   </pre>
+  -->
+</div>
+<div>
+  <h3 class="text-center">Time List</h3>
+      <table class=" table table-striped table-bordered table-hover" align="center">
+        <thead>
+          <tr>
+            <th> Name</th>
+            <th>Department</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ts of timeSheets">
+            <td> {{ts.first_name}} </td>
+           
+          </tr>
+        </tbody>
+  </table>
+  <!--
+  <pre>
+    First Name:  {{timeSheets[0].first_name}}
+  </pre>
+  -->
 
 </div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { DatePipe } from '@angular/common';
 //import { Observable } from 'rxjs/Observable' ;
 import { forkJoin } from 'rxjs/observable/forkJoin';
 
@@ -26,12 +26,12 @@ export class TimeSheetComponent implements OnInit {
   public total_hours: number = 0;
  
   _jobTime: JobTime[];
-   today: number = Date.now() ;
+  today = new Date().toJSON();
   members:  Member[];
   departments: Department[];
   jobs: Job[];
   jobCategories: JobCategory[];
-  
+  pipe = new DatePipe('en-US');
   constructor(private fb: FormBuilder, private memberService: MemberService,
     private departmentService: DepartmentService, private jobService: JobService,
     private timeSheetService: TimeSheetService, private jobCategoryService: JobCategoryService) {
@@ -39,13 +39,13 @@ export class TimeSheetComponent implements OnInit {
    }
 
   ngOnInit() {
-   
+    this.today = this.pipe.transform(this.today, 'M/dd/yyyy')
     this.timeSheetForm = this.fb.group({
       first_name: [''],
       job_date: null,
       job_times_attributes: this.fb.array([this.init_time()])
     });
-
+    this.timeSheetForm.controls.job_date.setValue(this.today);
     this.timeSheetForm.valueChanges.subscribe(form =>{
       let hour: number = 0;
      // console.log(this.timeSheetForm.controls.job_times.value);
@@ -136,7 +136,12 @@ save(){
         console.log(' client error ', err.error.message);
       }else{
         console.log('  Backend returned status code: ', err.status);
-        console.log('  Response body: ', err.error);
+        console.log('  Response error: ', err.error);
+        console.log('  Response header: ', err.headers);
+        console.log('  Response statusText: ', err.statusText);
+        console.log('  Response message: ', err.message);
+
+        alert(" Error " + err.error);
       }
       
     }

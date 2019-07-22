@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormBuilder, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Job } from '../../jobs/job/job';
 import { JobService } from '../../jobs/job/job.service';
@@ -16,21 +16,43 @@ export class JobReportComponent implements OnInit {
 
   jobs: Job[];
   timeSheet: TimeSheet;
-  job_times: JobTime[];
-  public data: TimeSheet[];
+  //job_times: JobTime[];
+  timeSheets: TimeSheet[] = [{
+    first_name: '',
+    job_date: new Date,
+    job_times: []
+ 
+  }]
+ // job_times: JobTime[];
+ // public data: TimeSheet[]; 
   pipe = new DatePipe('en-US');
-  public tsForm: FormGroup;
+  public tsForm= new FormGroup ({
+    job_id: new FormControl(''),
+    job_date: new FormControl('')
+  })
+  // today = new Date().toJSON().slice(0,10).replace(/-/g,'/');
+   today = new Date().toJSON();
 
+   // @Input() timeSheets: TimeSheet[];
   constructor( private jobService: JobService, private fb: FormBuilder,
-    private timeSheetService: TimeSheetService) { }
+    private timeSheetService: TimeSheetService) { 
+      // this.tsForm = this.fb.group({
+      //   job_id: [''],
+      //   job_date: [''],
+        
+      // });
+    }
 
   ngOnInit() {
-    this.tsForm = this.fb.group({
-      job_id: [{ value: '' }],
-      job_date: [{ value: null }],
-      
-    });
+    this.today = this.pipe.transform(this.today, 'M/dd/yyyy')
+    console.log('On Init ', this.timeSheets[0].first_name);
     this.getJobs();
+    this.tsForm.controls.job_date.setValue(this.today);
+    console.log('Today is ', this.today);
+  }
+
+  setTsFormValue(){
+    
   }
 
   getJobs(){
@@ -57,7 +79,7 @@ export class JobReportComponent implements OnInit {
     )
   }
   onSubmit(){
-    alert('Onsubmit');
+   // alert('Onsubmit');
 
     if(this.tsForm.valid){
       console.log("Search Job date", this.tsForm.value.job_id);
@@ -68,9 +90,10 @@ export class JobReportComponent implements OnInit {
           this.tsForm.value.job_date = this.pipe.transform(this.tsForm.value.job_date, 'yyyy-M-dd');
           this.timeSheetService.getJobTimeByDateByJobId(this.tsForm.value.job_id, this.tsForm.value.job_date).subscribe(
             results => {
-  
+              this.timeSheets = results;
               console.log('Report by date, job id ', results);
-  
+              console.log('Report Time sheets ', this.timeSheets[0].first_name);
+              console.log('Report job department ', this.timeSheets[0].job_times[0].job_department);
             },
             (err: HttpErrorResponse) => {
               if (err.error instanceof Error) {
