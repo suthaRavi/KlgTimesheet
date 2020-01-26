@@ -9,7 +9,7 @@ import { Customer } from '../customer/customer';
 import { CustomerService } from '../customer/customer.service';
 import { JobStatus } from '../job-statuses/job-status';
 import { JobStatusService } from '../job-statuses/job-status.service';
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'job',
   templateUrl: './job.component.html',

@@ -40,6 +40,13 @@
         <tbody>
           <tr *ngFor="let ts of timeSheets">
             <td> {{ts.first_name}} </td>
+            <td> <tr *ngFor="let jt of ts.job_times" >
+              <td>{{jt.job_department}}</td>
+              <td> {{jt.job_category}} </td>
+              <td>{{jt.job_time}}</td>
+              <td> {{jt.is_overtime}} </td>
+            </tr> 
+          </td>
            
           </tr>
         </tbody>

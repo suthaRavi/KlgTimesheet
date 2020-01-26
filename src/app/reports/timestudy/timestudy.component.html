@@ -1,6 +1,6 @@
 <div class="container">
     <h3 class="text-center">Time Study</h3>
-    <form novalidate  [formGroup]= "tsForm" (ngSubmit)="onSubmit(searchForm.value)">
+    <form novalidate  [formGroup]= "tsForm" (ngSubmit)="onSubmit()">
         <div class="col-sm-12">
             <div class="form-group col-sm-6">
                 <select class="form-control" name="first_name" formControlName="first_name" >
@@ -51,10 +51,10 @@
                                 <div class="panel panel-body">
                                     <div class="form-row">
                                         <div class="form-group col-xs-4 border bold">
-                                            <input type="text" class="form-control" formControlName="first_name" [(ngModel)]="timeSheet.first_name" readonly />
+                                            <input type="text" class="form-control" formControlName="first_name"  readonly />
                                         </div>
                                         <div class="col-xs-4 form-group bold">
-                                            <input type="text" class="form-control" formControlName="job_date" [(ngModel)]="timeSheet.job_date" readonly />
+                                            <input type="text" class="form-control" formControlName="job_date"  readonly />
                                         </div>
                                     </div>
                                 </div>
@@ -66,7 +66,7 @@
                                                     <div>
                                                     <span>Time {{i + 1}}</span>
                                                     <span class="glyphicon glyphicon-remove pull-right" *ngIf=" i > 0" (click)="removeTime(i)"></span>
-                                                    <span class="fa fa-plus pull-right" *ngIf=" i == 0" (click)="addTime()"></span>
+                                                    <span class="fa fa-plus pull-right" *ngIf=" i == 0" (click)="addTime(i)"></span>
                                                 </div>
 
                                                 </div>

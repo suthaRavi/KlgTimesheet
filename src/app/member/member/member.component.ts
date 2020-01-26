@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 //import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 //import { BootstrapModule } from '../../bootstrap/bootstrap.module';
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { forkJoin } from 'rxjs';
 
 import { Member } from '../member/member';
 import { MemberService } from '../member/member.service';

@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 //import { Observable } from 'rxjs/Observable' ;
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { forkJoin } from 'rxjs';
 
 import { Department } from '../member/department/department';
 import { DepartmentService } from '../member/department/department.service';
@@ -39,7 +39,7 @@ export class TimeSheetComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.today = this.pipe.transform(this.today, 'M/dd/yyyy')
+    this.today = this.pipe.transform(this.today, 'MM/dd/yyyy')
     this.timeSheetForm = this.fb.group({
       first_name: [''],
       job_date: null,
@@ -120,6 +120,7 @@ getResources(){
 save(){
  // console.log("Save ");
   console.log("Form Value ", this.timeSheetForm.value);
+  this.timeSheetForm.value.job_date = this.pipe.transform(this.timeSheetForm.value.job_date, 'yyyy-M-dd');
 
   this.timeSheetService.addTimeSheet(this.timeSheetForm.value).subscribe(
     res => {

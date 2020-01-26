@@ -87,7 +87,7 @@ export class JobReportComponent implements OnInit {
         console.log("Search by Job id");
         if(typeof this.tsForm.value.job_date != undefined && this.tsForm.value.job_date){
           console.log("Search By job id and Job date");
-          this.tsForm.value.job_date = this.pipe.transform(this.tsForm.value.job_date, 'yyyy-M-dd');
+          this.tsForm.value.job_date = this.pipe.transform(this.tsForm.value.job_date, 'yyyy-MM-dd');
           this.timeSheetService.getJobTimeByDateByJobId(this.tsForm.value.job_id, this.tsForm.value.job_date).subscribe(
             results => {
               this.timeSheets = results;

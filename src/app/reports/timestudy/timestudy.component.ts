@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, ViewChild, Input, SimpleChanges, TemplateRef } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
-import { forkJoin } from 'rxjs/observable/forkJoin';
+import { forkJoin } from 'rxjs';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 //import {ReactiveFormsModule} from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -119,17 +119,17 @@ export class TimestudyComponent implements OnChanges {
     return this.tsForm.get('job_times_attributes') as FormArray;
   }
 
-  onSubmit(form: any) {
-    console.log("search type ", form.value);
-    if (this.form.valid) {
+  onSubmit() {
+    console.log("search type ", this.tsForm.value);
+    if (this.tsForm.valid) {
       //      alert(form.first_name); 
       //this.timeSheets = [];
-      if ((typeof form.first_name != 'undefined' && form.first_name) &&
-        (typeof form.job_date != 'undefined' && form.job_date)) {
-        form.job_date = this.pipe.transform(form.job_date, 'yyyy-M-dd');
+      if ((this.tsForm.value.first_name != 'undefined' && this.tsForm.value.first_name) &&
+        (this.tsForm.value.job_date != 'undefined' && this.tsForm.value.job_date)) {
+          this.tsForm.value.job_date = this.pipe.transform(this.tsForm.value.job_date, 'yyyy-M-dd');
         // form.end_date = this.pipe.transform(form.end_date, 'yyyy-M-dd');
-        console.log("*** Job date ", form.job_date);
-        this.timeSheetService.getTimeSheets(form.first_name, form.job_date).subscribe(
+        console.log("*** Job date ", this.tsForm.value.job_date);
+        this.timeSheetService.getTimeSheets(this.tsForm.value.first_name, this.tsForm.value.job_date).subscribe(
           results => {
 
             this.data = results;
@@ -142,7 +142,7 @@ export class TimestudyComponent implements OnChanges {
 
               this.createFormWithData(this.timeSheet);
               this.modalRef = this.modalService.show(this.updateTimesheet)
-              this.form.reset();
+             // this.form.reset();
               console.log("True data ", this.timeSheet.first_name);
 
             }
@@ -177,7 +177,9 @@ export class TimestudyComponent implements OnChanges {
     this.tsForm.setControl('job_times_attributes', jobtimeFormArray);
   }
 
-  addTime() {
+  addTime(i: number) {
+    console.log("Form Job times ADD ", this.tsForm.value.job_times_attributes[0].time_sheet_id);
+    this.tsForm.value.job_times_attributes[i + 1].time_sheet_id = this.tsForm.value.job_times_attributes[0].time_sheet_id;
     const control = <FormArray>this.tsForm.controls['job_times_attributes'];
     control.push(this.init_time());
   }
@@ -215,6 +217,7 @@ export class TimestudyComponent implements OnChanges {
     this.timeSheetService.updateTimeSheet(this.tsForm.value, this.tsForm.value.job_times_attributes[0].time_sheet_id).subscribe(
       response => {
         console.log('Update Response ', response);
+        this.modalService.hide(1);
       },
       (err: HttpErrorResponse) => {
         if (err.error instanceof Error) {
