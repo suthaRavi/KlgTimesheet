@@ -13,7 +13,7 @@ import { MemberCategoryService } from './member-category.service';
 })
 export class MemberCategoryComponent implements OnInit {
   @Input('memberCategory-mode') memberCategoryMode: 'Add' | 'Update' = 'Add';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   private isInsert: boolean = true;
   memberCategories: MemberCategory[];
   private memberCategory: MemberCategory = new MemberCategory;

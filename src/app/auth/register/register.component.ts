@@ -11,7 +11,7 @@ import * as modal from 'ngx-bootstrap/modal' ;
 export class RegisterComponent implements OnInit {
   registerData: RegisterData = <RegisterData>{};
   @Output() onFormResult = new EventEmitter<any>();
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
  
   modalRef: modal.BsModalRef;
   public registerForm: FormGroup;

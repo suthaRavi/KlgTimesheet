@@ -13,7 +13,7 @@ import { StatusService } from './status.service';
 })
 export class StatusComponent implements OnInit {
   @Input('status-mode') statusMode: 'Add' | 'Update' = 'Add';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   private isInsert: boolean = true;
   statuses: Status[];
   private status: Status = new Status;

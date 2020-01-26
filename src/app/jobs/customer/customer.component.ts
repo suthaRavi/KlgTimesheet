@@ -13,7 +13,7 @@ import { CustomerService } from '../customer/customer.service';
 })
 export class CustomerComponent implements OnInit {
   @Input('customer-mode') customerMode: 'Add' | 'Update' = 'Add';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   public isInsert: boolean = true;
   customers: Customer[];
   public customer: Customer = new Customer;

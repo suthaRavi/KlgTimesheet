@@ -12,7 +12,7 @@ import { JobStatusService } from './job-status.service'
 })
 export class JobStatusesComponent implements OnInit {
   @Input('jobStatus-mode') jobStatusMode: 'Add' | 'Update' = 'Add';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   private isInsert: boolean = true;
   jobStatuses: JobStatus[];
   private jobStatus: JobStatus = new JobStatus;

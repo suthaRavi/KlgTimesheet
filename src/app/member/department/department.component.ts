@@ -14,7 +14,7 @@ export class DepartmentComponent implements OnInit {
 
   
   @Input('department-mode') departmentMode: 'Add' | 'Update' = 'Add';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   private isInsert: boolean = true;
   departments: Department[];
   private department: Department = new Department;

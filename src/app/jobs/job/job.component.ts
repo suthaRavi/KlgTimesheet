@@ -17,7 +17,7 @@ import { forkJoin } from 'rxjs';
 })
 export class JobComponent implements OnInit {
   @Input('job-mode') jobMode: 'Add' | 'Update' = 'Add';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   private isInsert: boolean = true;
   jobs: Job[];
   customers: Customer[];

@@ -25,7 +25,7 @@ import { StatusService } from '../status/status.service';
 })
 export class MemberComponent implements OnInit {
   @Input('member-mode') memberMode: 'Add' | 'Update' = 'Add';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   isInsert: boolean = true;
   members: Member[];
   member: Member = new Member;

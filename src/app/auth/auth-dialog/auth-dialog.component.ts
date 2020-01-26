@@ -8,7 +8,7 @@ import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 })
 export class AuthDialogComponent implements OnInit {
   @Input('auth-mode') authMode: 'Login' | 'Register'| 'ResetPassword' = 'Login';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   modalRef: BsModalRef;
   
 

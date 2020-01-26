@@ -12,7 +12,7 @@ export class ResetPasswordComponent implements OnInit {
   
   resetPasswordData: ResetPasswordData = <ResetPasswordData>{};
   @Output() onFormResult = new EventEmitter<any>();
-  @ViewChild('template') template: TemplateRef<any>;
+  @ViewChild('template', {static: false}) template: TemplateRef<any>;
  
   modalRef: modal.BsModalRef;
   public resetPasswordForm: FormGroup;

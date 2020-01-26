@@ -13,7 +13,7 @@ import { JobCategoryService } from './job-category.service';
 })
 export class JobCategoryComponent implements OnInit {
   @Input('jobCategory-mode') jobCategoryMode: 'Add' | 'Update' = 'Add';
-  @ViewChild('template') template: TemplateRef<any>
+  @ViewChild('template', {static: false}) template: TemplateRef<any>
   private isInsert: boolean = true;
   jobCategories: JobCategory[];
   private jobCategory: JobCategory = new JobCategory;

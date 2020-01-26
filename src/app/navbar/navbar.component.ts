@@ -11,7 +11,7 @@ import {AuthDialogComponent } from '../auth/auth-dialog/auth-dialog.component'
 export class NavbarComponent implements OnInit {
   @Input() registerComponent: RegisterComponent;
  // @ViewChild('testDialog') testDialog: RegisterComponent;
-  @ViewChild('authDialog') authDialog: AuthDialogComponent;
+  @ViewChild('authDialog', {static: false}) authDialog: AuthDialogComponent;
   
   constructor(private router: Router, public tokenService: AngularTokenService,
      ) { }

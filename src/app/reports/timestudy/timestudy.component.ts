@@ -28,8 +28,8 @@ import { TimeSheetService } from '../../time-sheet/time-sheet.service';
 
 
 export class TimestudyComponent implements OnChanges {
-  @ViewChild('updateTimesheet') updateTimesheet: TemplateRef<any>
-  @ViewChild('searchForm') form: any;
+  @ViewChild('updateTimesheet',{static: false}) updateTimesheet: TemplateRef<any>
+  @ViewChild('searchForm', {static: false}) form: any;
   members: Member[];
   jobs: Job[];
   departments: Department[];
