@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 
@@ -12,10 +12,13 @@ export class JobService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getJobs(): Observable<Job[]> 
+  getJobs(): Observable<Job[]>     
     {
+   //   let queryString = new HttpParams().set('status', nameng serve
+    //  );
       return this.httpClient.get<Job[]>(this.jobUrl, {responseType: 'json'});
     }
+
 
     addJob(job: Job): Observable<Job>
     {

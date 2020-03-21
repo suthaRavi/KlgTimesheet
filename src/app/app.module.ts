@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularTokenModule } from 'angular-token';
 import { BootstrapModule } from './bootstrap/bootstrap.module';
+import { ChartsModule } from 'ng2-charts';
 
 
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AngularTokenModule.forRoot({
       apiBase: 'http://localhost:3000'
     }),
+    ChartsModule,
     MemberModule,
     JobsModule,
     AppRoutingModule,

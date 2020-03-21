@@ -63,51 +63,47 @@
       <form [formGroup]="memberForm" novalidate>
         <div class="form-row">
           <div class="col-sm-4 form-group ">
-            <input type="text" class="form-control" placeholder="Member id" formControlName="member_id" [(ngModel)]="member.member_id"
-            />
+            <input type="text" class="form-control" placeholder="Member id" formControlName="member_id"/>
           </div>
           <div class="col-sm-4 form-group ">
-            <input type="text" class="form-control" placeholder="first name" formControlName="first_name" [(ngModel)]="member.first_name"
-            />
+            <input type="text" class="form-control" placeholder="first name" formControlName="first_name"/>
           </div>
           <div class="col-sm-4 form-group ">
-            <input type="text" class="form-control" placeholder="Last name" formControlName="last_name" [(ngModel)]="member.last_name"
-            />
+            <input type="text" class="form-control" placeholder="Last name" formControlName="last_name">
           </div>
         </div>
         <div class="form-row">
           <div class="col-sm-4 form-group ">
 
-            <select class="form-control" formControlName="department" [(ngModel)]="member.department">
-              <option value="Department" disabled selected>Department</option>
+            <select class="form-control" formControlName="department" >
+              <option selected disabled value="">Department</option>
               <option *ngFor="let department of departments " [value]="department.name"> {{department.name}} </option>
             </select>
           </div>
           <div class="col-sm-4 form-group ">
-            <select class="form-control" formControlName="role" [(ngModel)]="member.role">
+            <select class="form-control" formControlName="role" >
               <option selected disabled value="">Role </option>
               <option *ngFor="let role of roles " [value]="role.name"> {{role.name}} </option>
             </select>
 
           </div>
           <div class="col-sm-4 form-group ">
-            <input type="text" class="form-control" placeholder="Reporting" formControlName="reporting_id" [(ngModel)]="member.reporting_id"
-            />
+            <input type="text" class="form-control" placeholder="Reporting" formControlName="reporting_id"/>
           </div>
         </div>
         <div class="form-row">
           <div class="col-sm-4 form-group ">
-            <select class="form-control" formControlName="category" [(ngModel)]="member.category">
+            <select class="form-control" formControlName="category" >
               <option selected disabled value="">Category</option>
               <option *ngFor="let category of memberCategories" [value]="category.name">{{category.name}}</option>
             </select>
 
           </div>
           <div class="col-sm-4 form-group ">
-            <input type="text" class="form-control" placeholder="Pay Rate" formControlName="pay_rate" [(ngModel)]="member.pay_rate" />
+            <input type="text" class="form-control" placeholder="Pay Rate" formControlName="pay_rate"  />
           </div>
           <div class="col-sm-4 form-group ">
-            <select class="form-control" formControlName="status" [(ngModel)]="member.status">
+            <select class="form-control" formControlName="status" >
               <option selected disabled value="">Status</option>
               <option *ngFor="let status of statuses" [value]="status.name"> {{status.name}} </option>
             </select>
@@ -116,11 +112,11 @@
         </div>
         <div class="form-row">
           <div class="col-sm-6 form-group ">
-            <input type="text" class="form-control" placeholder="dd.mm.yyyy" bsDatepicker formControlName="join_date" />
+            <input type="text" class="form-control" placeholder="Join Date" bsDatepicker formControlName="join_date" />
 
           </div>
           <div class="col-sm-6 form-group ">
-            <input type="text" class="form-control" placeholder="dd.mm.yyyy" bsDatepicker formControlName="end_date" />
+            <input type="text" class="form-control" placeholder="End date" bsDatepicker formControlName="end_date" />
           </div>
         </div>
         <div class="clear-fix"></div>
