@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, TemplateRef, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormsModule} from '@angular/forms';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 //import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 //import { BootstrapModule } from '../../bootstrap/bootstrap.module';
 import { forkJoin } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 import { Member } from '../member/member';
 import { MemberService } from '../member/member.service';
@@ -18,17 +19,19 @@ import {Status } from '../status/status';
 import { StatusService } from '../status/status.service';
 
 
+
 @Component({
   selector: 'member',
   templateUrl: './member.component.html',
-  styleUrls: ['./member.component.css']
+  styleUrls: ['./member.component.css'],
+  providers: [ DatePipe]
 })
 export class MemberComponent implements OnInit {
   @Input('member-mode') memberMode: 'Add' | 'Update' = 'Add';
   @ViewChild('template', {static: false}) template: TemplateRef<any>
   isInsert: boolean = true;
   members: Member[];
-  member: Member = new Member;
+ // member: Member = new Member;
   departments: Department[];
   memberCategories: MemberCategory[];
   roles: Role[];
@@ -36,17 +39,17 @@ export class MemberComponent implements OnInit {
   memberForm: FormGroup;
 
   modalRef: BsModalRef;
-  
+   
   constructor(private memberService: MemberService, private modalService: BsModalService, 
      private fb: FormBuilder, private departmentService: DepartmentService, private memberCategoryService: MemberCategoryService,
-      private roleService: RoleService, private statusService: StatusService) { 
-
+      private roleService: RoleService, private statusService: StatusService, private datePipe: DatePipe) { 
 
        }
 
   ngOnInit() {
    // this.getMembers();
     this.memberForm = this.fb.group({
+      id: [],
       member_id: ['', Validators.required],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -57,7 +60,9 @@ export class MemberComponent implements OnInit {
       end_date: null,
       category: ['', Validators.required],
       pay_rate: ['', Validators.required],
-      status: ['']
+      status: [''],
+      created_at: null,
+      updated_at: null
     });
     this.getResources();
   }
@@ -95,51 +100,35 @@ export class MemberComponent implements OnInit {
 
   }
 
-  getMembers(){
-    this.memberService.getMembers().subscribe(
-      results =>{
-        this.members = results;
-        console.log("Member ", this.members);
-      },
-      (err: HttpErrorResponse) => {
-        if(err.error instanceof Error){
-          console.log(' client error ', err.error.message);
-        }else{
-          console.log('  Backend returned status code: ', err.status);
-          console.log('  Response body: ', err.error);
-        }
-      }
-    )
-
-  }
   presentMemberDialog(mode?: 'Add' | 'Update', value?: Member ){
     console.log("** " + mode);
-    
+    console.log(" ### for update " + Object.values(value));
     this.memberMode = mode;
     if(mode == 'Add'){
        this.isInsert = true;
-      this.member = new Member;
-    }
+      }
      if(mode == 'Update'){
        this.isInsert = false;
-       this.member = value;
-        console.log("From Update ", this.member);
+       console.log("** join date Stringfy " + JSON.stringify(value.join_date));
+      this.memberForm.setValue(value);
+      console.log("Member form join_date " + (this.memberForm.controls.join_date.value));
+      this.memberForm.controls['join_date'].setValue(this.datePipe.transform(value.join_date, 'MM/dd/yyyyy'));
+      console.log("Member form join_date After " + (this.memberForm.controls.join_date.value));
     }
     console.log("Mode " + this.isInsert);
       this.modalRef = this.modalService.show(this.template)
     //  this.modalAction.emit({action:"modal",params:['open']});
   }
  
-  addMember(member){
-    console.log("Add member ", member.code );
+  addMember(member: Member){
+    //console.log("Add member ", member.code );
     console.log("Join date ", member.join_date);
     this.memberService.addMember(member).subscribe(            
                             res =>{   
                                 this.members.push(res); 
-                                this.member= new Member;
-                                this.modalService.hide(1);                      
-                               // this.closeModal(); 
-                             //  this.modalAction.emit({action:"modal",params:['close']});                                                     
+                                this.memberForm.reset();
+                                this.closeModal();                  
+                                                   
                             }, 
                                                                                
                             (err: HttpErrorResponse) => {
@@ -149,20 +138,22 @@ export class MemberComponent implements OnInit {
                                 console.log('  Backend returned status code: ', err.status);
                                 console.log('  Response body: ', err.error);
                               }
-                              this.modalService.hide(1); 
+                              //this.modalService.hide(1); 
+                              this.closeModal(); 
                             });    
                   
   }
 
   updateMember(value: Member)
   {
-
-    this.memberService.updateMember(this.member).subscribe
+    console.log("Update Member "+ Object.values(value));   
+    this.memberService.updateMember(value).subscribe
     (
       response => 
       {
-        this.member = response
-        this.modalService.hide(1);
+        this.members.splice(value.id-1,1, value);
+        this.memberForm.reset();
+        this.closeModal();
       },
       (err: HttpErrorResponse) => 
       {
@@ -172,7 +163,7 @@ export class MemberComponent implements OnInit {
           console.log('  Backend returned status code: ', err.status);
           console.log('  Response body: ', err.error);
         }
-        this.modalService.hide(1); 
+         this.closeModal(); 
       } 
     )
    
@@ -186,7 +177,7 @@ export class MemberComponent implements OnInit {
         let id = member.id;     
         this.memberService.deleteMember(member.id).subscribe(
             response => 
-            { //this.members = response;
+            { 
               this.members = this.members.filter(member => member.id !== id)
             },
             (err: HttpErrorResponse) => 
@@ -197,13 +188,17 @@ export class MemberComponent implements OnInit {
                 console.log('  Backend returned status code: ', err.status);
                 console.log('  Response body: ', err.error);
               }
-              this.modalService.hide(1); 
+              //this.modalService.hide(1); 
+              this.closeModal();
             } 
         )
       }
       else{
       }
   }
-
+closeModal(){
+  this.memberForm.reset()
+  this.modalService.hide(1);
+}
 
 }

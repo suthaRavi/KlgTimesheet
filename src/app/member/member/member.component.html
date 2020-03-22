@@ -34,12 +34,9 @@
         <td> {{member.category}} </td>
         <td> {{member.pay_rate}} </td>
         <td> {{member.status}} </td>
-
-
         <td>
           <button class="btn btn-default fa fa-pencil" (click)="presentMemberDialog( 'Update', member)"></button>
           <button class="btn btn-default fa fa-trash" (click)="removeMember(member)"></button>
-
         </td>
       </tr>
     </tbody>
@@ -47,15 +44,13 @@
 </div>
 
 <ng-template #template>
-
   <div class="modal-header">
     <h4 class="modal-title text-center">{{ memberMode + " Member " }}</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-
     <div class="container-fluid">
       <div class="text-center">
         <h4>Member</h4>
@@ -63,7 +58,7 @@
       <form [formGroup]="memberForm" novalidate>
         <div class="form-row">
           <div class="col-sm-4 form-group ">
-            <input type="text" class="form-control" placeholder="Member id" formControlName="member_id"/>
+            <input type="text" class="form-control" placeholder="Member id" formControlName="member_id" />
           </div>
           <div class="col-sm-4 form-group ">
             <input type="text" class="form-control" placeholder="first name" formControlName="first_name"/>
@@ -127,18 +122,15 @@
           </div>
           <div *ngIf="!isInsert" class="col s4">
 
-            <button type="submit" (click)="updateMember()" class="btn btn-success pull-right" [disabled]="!memberForm.valid">Update</button>
+            <button type="submit" (click)="updateMember(memberForm.value)" class="btn btn-success pull-right" [disabled]="!memberForm.valid">Update</button>
           </div>
 
           <div class="col s4">
-            <button type="button" class=" btn lime lightern-1 pull-right close_btn  " (click)="modalRef.hide()">Close</button>
+            <button type="button" class=" btn lime lightern-1 pull-right close_btn  " (click)="closeModal()">Close</button>
 
           </div>
-
-
         </div>
       </form>
     </div>
   </div>
-
 </ng-template>
