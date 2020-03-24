@@ -13,10 +13,14 @@ export class JobService {
   constructor(private httpClient: HttpClient) { }
 
   getJobs(): Observable<Job[]>     
+  {
+     return this.httpClient.get<Job[]>(this.jobUrl, {responseType: 'json'});
+  }
+
+  getDashboardJobs(status: string): Observable<Job[]>     
     {
-   //   let queryString = new HttpParams().set('status', nameng serve
-    //  );
-      return this.httpClient.get<Job[]>(this.jobUrl, {responseType: 'json'});
+      let queryString = new HttpParams().set('status', status );
+      return this.httpClient.get<Job[]>(this.jobUrl, {params: queryString, responseType: 'json'});
     }
 
 
