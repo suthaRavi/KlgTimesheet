@@ -16,6 +16,7 @@ export class ResetPasswordComponent implements OnInit {
  
   modalRef: modal.BsModalRef;
   public resetPasswordForm: FormGroup;
+  redirect_url = 'http://localhost:4200/updatePassword'
 
   constructor(private tokenService: AngularTokenService,
     private modalService: modal.BsModalService,
@@ -28,12 +29,13 @@ export class ResetPasswordComponent implements OnInit {
     })
   }
   resetPassword(){
-    console.log('Reset password ', this.resetPasswordForm.value.login);
+    console.log('****Reset password ', this.resetPasswordForm.value.login);
+    console.log("Reset passwordData ", this.tokenService.userSignedIn());
     this.resetPasswordData.login = this.resetPasswordForm.value.login;
     this.tokenService.resetPassword(this.resetPasswordData).subscribe(
       res => {
         if(res.status == 'success'){
-          this.onFormResult.emit({ signedUp: true, res});
+          this.onFormResult.emit({ signedUp: false, res});
           console.log('Reset Password ', res);
           this.modalService.hide(1);
           
